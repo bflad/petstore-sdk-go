@@ -1,0 +1,27 @@
+speakeasyVersion: 1.321.0
+sources:
+    sample-source:
+        sourceNamespace: sample-source
+        sourceRevisionDigest: sha256:2cff9e33f17277ee507a6340f32b3b5ea638464582ec5300dfb2ece0b1302abe
+        sourceBlobDigest: sha256:4b23250aecc943413c28f91597f70f781324efd20e2259ee79d25fcc55739a9f
+        tags:
+            - latest
+targets:
+    petstore-sdk:
+        source: sample-source
+        sourceNamespace: sample-source
+        sourceRevisionDigest: sha256:2cff9e33f17277ee507a6340f32b3b5ea638464582ec5300dfb2ece0b1302abe
+        sourceBlobDigest: sha256:4b23250aecc943413c28f91597f70f781324efd20e2259ee79d25fcc55739a9f
+        outLocation: /Users/bflad/test/my-first-target/petstore-sdk-go
+workflow:
+    workflowVersion: 1.0.0
+    sources:
+        sample-source:
+            inputs:
+                - location: openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/playground-wnq/playground-testing/sample-source
+    targets:
+        petstore-sdk:
+            target: go
+            source: sample-source

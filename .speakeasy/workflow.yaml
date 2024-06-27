@@ -1,0 +1,11 @@
+workflowVersion: 1.0.0
+sources:
+    sample-source:
+        inputs:
+            - location: openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/playground-wnq/playground-testing/sample-source
+targets:
+    petstore-sdk:
+        target: go
+        source: sample-source
