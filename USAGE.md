@@ -13,7 +13,9 @@ func main() {
 	s := petstoresdk.New(
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
-	request := components.Pet{
+
+	ctx := context.Background()
+	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
 		Category: &components.Category{
@@ -22,10 +24,9 @@ func main() {
 		},
 		PhotoUrls: []string{
 			"<value>",
+			"<value>",
 		},
-	}
-	ctx := context.Background()
-	res, err := s.Pet.UpdatePet(ctx, request)
+	})
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -7,4 +7,4 @@
 | -------------------- | -------------------- | -------------------- | -------------------- |
 | `PetID`              | *int64*              | :heavy_check_mark:   | ID of pet to update  |
 | `AdditionalMetadata` | **string*            | :heavy_minus_sign:   | Additional Metadata  |
-| `RequestBody`        | *[]byte*             | :heavy_minus_sign:   | N/A                  |
+| `RequestBody`        | **any*               | :heavy_minus_sign:   | N/A                  |

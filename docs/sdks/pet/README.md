@@ -7,6 +7,7 @@ Everything about your Pets
 
 Find out more
 <http://swagger.io>
+
 ### Available Operations
 
 * [UpdatePet](#updatepet) - Update an existing pet
@@ -28,8 +29,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"github.com/bflad/petstore-sdk/models/components"
 	"context"
+	"github.com/bflad/petstore-sdk/models/components"
 	"log"
 )
 
@@ -37,7 +38,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    request := components.Pet{
+
+    ctx := context.Background()
+    res, err := s.Pet.UpdatePet(ctx, components.Pet{
         ID: petstoresdk.Int64(10),
         Name: "doggie",
         Category: &components.Category{
@@ -46,10 +49,9 @@ func main() {
         },
         PhotoUrls: []string{
             "<value>",
+            "<value>",
         },
-    }
-    ctx := context.Background()
-    res, err := s.Pet.UpdatePet(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -61,21 +63,24 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `request`                                             | [components.Pet](../../models/components/pet.md)      | :heavy_check_mark:                                    | The request object to use for the request.            |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `request`                                                | [components.Pet](../../models/components/pet.md)         | :heavy_check_mark:                                       | The request object to use for the request.               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.UpdatePetResponse](../../models/operations/updatepetresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## AddPet
 
@@ -88,8 +93,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"github.com/bflad/petstore-sdk/models/components"
 	"context"
+	"github.com/bflad/petstore-sdk/models/components"
 	"log"
 )
 
@@ -97,7 +102,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    request := components.Pet{
+
+    ctx := context.Background()
+    res, err := s.Pet.AddPet(ctx, components.Pet{
         ID: petstoresdk.Int64(10),
         Name: "doggie",
         Category: &components.Category{
@@ -107,9 +114,7 @@ func main() {
         PhotoUrls: []string{
             "<value>",
         },
-    }
-    ctx := context.Background()
-    res, err := s.Pet.AddPet(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -121,18 +126,21 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `request`                                             | [components.Pet](../../models/components/pet.md)      | :heavy_check_mark:                                    | The request object to use for the request.            |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `request`                                                | [components.Pet](../../models/components/pet.md)         | :heavy_check_mark:                                       | The request object to use for the request.               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.AddPetResponse](../../models/operations/addpetresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## FindPetsByStatus
 
@@ -145,7 +153,6 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"github.com/bflad/petstore-sdk/models/operations"
 	"context"
 	"log"
 )
@@ -154,9 +161,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var status *operations.Status = operations.StatusAvailable.ToPointer()
+
     ctx := context.Background()
-    res, err := s.Pet.FindPetsByStatus(ctx, status)
+    res, err := s.Pet.FindPetsByStatus(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -168,21 +175,24 @@ func main() {
 
 ### Parameters
 
-| Parameter                                               | Type                                                    | Required                                                | Description                                             |
-| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| `ctx`                                                   | [context.Context](https://pkg.go.dev/context#Context)   | :heavy_check_mark:                                      | The context to use for the request.                     |
-| `status`                                                | [*operations.Status](../../models/operations/status.md) | :heavy_minus_sign:                                      | Status values that need to be considered for filter     |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `status`                                                 | [*operations.Status](../../models/operations/status.md)  | :heavy_minus_sign:                                       | Status values that need to be considered for filter      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.FindPetsByStatusResponse](../../models/operations/findpetsbystatusresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## FindPetsByTags
 
@@ -203,11 +213,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var tags []string = []string{
-        "<value>",
-    }
+
     ctx := context.Background()
-    res, err := s.Pet.FindPetsByTags(ctx, tags)
+    res, err := s.Pet.FindPetsByTags(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -219,21 +227,24 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `tags`                                                | []*string*                                            | :heavy_minus_sign:                                    | Tags to filter by                                     |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `tags`                                                   | []*string*                                               | :heavy_minus_sign:                                       | Tags to filter by                                        |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.FindPetsByTagsResponse](../../models/operations/findpetsbytagsresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## GetPetByID
 
@@ -254,9 +265,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var petID int64 = 504151
+
     ctx := context.Background()
-    res, err := s.Pet.GetPetByID(ctx, petID)
+    res, err := s.Pet.GetPetByID(ctx, 504151)
     if err != nil {
         log.Fatal(err)
     }
@@ -268,21 +279,24 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `petID`                                               | *int64*                                               | :heavy_check_mark:                                    | ID of pet to return                                   |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `petID`                                                  | *int64*                                                  | :heavy_check_mark:                                       | ID of pet to return                                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.GetPetByIDResponse](../../models/operations/getpetbyidresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## DeletePet
 
@@ -303,11 +317,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var petID int64 = 441876
 
-    var apiKey *string = petstoresdk.String("<value>")
     ctx := context.Background()
-    res, err := s.Pet.DeletePet(ctx, petID, apiKey)
+    res, err := s.Pet.DeletePet(ctx, 441876, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -319,22 +331,25 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `petID`                                               | *int64*                                               | :heavy_check_mark:                                    | Pet id to delete                                      |
-| `apiKey`                                              | **string*                                             | :heavy_minus_sign:                                    | N/A                                                   |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `petID`                                                  | *int64*                                                  | :heavy_check_mark:                                       | Pet id to delete                                         |
+| `apiKey`                                                 | **string*                                                | :heavy_minus_sign:                                       | N/A                                                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.DeletePetResponse](../../models/operations/deletepetresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## UploadFile
 
@@ -355,13 +370,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var petID int64 = 565380
 
-    var additionalMetadata *string = petstoresdk.String("<value>")
-
-    var requestBody []byte = []byte("0x7cca7F47Dd")
     ctx := context.Background()
-    res, err := s.Pet.UploadFile(ctx, petID, additionalMetadata, requestBody)
+    res, err := s.Pet.UploadFile(ctx, 565380, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -373,17 +384,20 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `petID`                                               | *int64*                                               | :heavy_check_mark:                                    | ID of pet to update                                   |
-| `additionalMetadata`                                  | **string*                                             | :heavy_minus_sign:                                    | Additional Metadata                                   |
-| `requestBody`                                         | *[]byte*                                              | :heavy_minus_sign:                                    | N/A                                                   |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `petID`                                                  | *int64*                                                  | :heavy_check_mark:                                       | ID of pet to update                                      |
+| `additionalMetadata`                                     | **string*                                                | :heavy_minus_sign:                                       | Additional Metadata                                      |
+| `requestBody`                                            | **any*                                                   | :heavy_minus_sign:                                       | N/A                                                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.UploadFileResponse](../../models/operations/uploadfileresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

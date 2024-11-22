@@ -26,8 +26,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"github.com/bflad/petstore-sdk/models/components"
 	"context"
+	"github.com/bflad/petstore-sdk/models/components"
 	"log"
 )
 
@@ -35,7 +35,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var request *components.User = &components.User{
+
+    ctx := context.Background()
+    res, err := s.User.CreateUser(ctx, &components.User{
         ID: petstoresdk.Int64(10),
         Username: petstoresdk.String("theUser"),
         FirstName: petstoresdk.String("John"),
@@ -44,9 +46,7 @@ func main() {
         Password: petstoresdk.String("12345"),
         Phone: petstoresdk.String("12345"),
         UserStatus: petstoresdk.Int(1),
-    }
-    ctx := context.Background()
-    res, err := s.User.CreateUser(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -58,18 +58,21 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `request`                                             | [components.User](../../models/components/user.md)    | :heavy_check_mark:                                    | The request object to use for the request.            |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `request`                                                | [components.User](../../models/components/user.md)       | :heavy_check_mark:                                       | The request object to use for the request.               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.CreateUserResponse](../../models/operations/createuserresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## CreateUsersWithListInput
 
@@ -82,8 +85,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"github.com/bflad/petstore-sdk/models/components"
 	"context"
+	"github.com/bflad/petstore-sdk/models/components"
 	"log"
 )
 
@@ -91,7 +94,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var request []components.User = []components.User{
+
+    ctx := context.Background()
+    res, err := s.User.CreateUsersWithListInput(ctx, []components.User{
         components.User{
             ID: petstoresdk.Int64(10),
             Username: petstoresdk.String("theUser"),
@@ -102,9 +107,7 @@ func main() {
             Phone: petstoresdk.String("12345"),
             UserStatus: petstoresdk.Int(1),
         },
-    }
-    ctx := context.Background()
-    res, err := s.User.CreateUsersWithListInput(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -116,18 +119,21 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `request`                                             | [[]components.User](../../.md)                        | :heavy_check_mark:                                    | The request object to use for the request.            |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `request`                                                | [[]components.User](../../.md)                           | :heavy_check_mark:                                       | The request object to use for the request.               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.CreateUsersWithListInputResponse](../../models/operations/createuserswithlistinputresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## LoginUser
 
@@ -148,11 +154,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var username *string = petstoresdk.String("<value>")
 
-    var password *string = petstoresdk.String("<value>")
     ctx := context.Background()
-    res, err := s.User.LoginUser(ctx, username, password)
+    res, err := s.User.LoginUser(ctx, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -164,22 +168,25 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `username`                                            | **string*                                             | :heavy_minus_sign:                                    | The user name for login                               |
-| `password`                                            | **string*                                             | :heavy_minus_sign:                                    | The password for login in clear text                  |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `username`                                               | **string*                                                | :heavy_minus_sign:                                       | The user name for login                                  |
+| `password`                                               | **string*                                                | :heavy_minus_sign:                                       | The password for login in clear text                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.LoginUserResponse](../../models/operations/loginuserresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## LogoutUser
 
@@ -214,17 +221,20 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.LogoutUserResponse](../../models/operations/logoutuserresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetUserByName
 
@@ -245,9 +255,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var username string = "<value>"
+
     ctx := context.Background()
-    res, err := s.User.GetUserByName(ctx, username)
+    res, err := s.User.GetUserByName(ctx, "Zachery_Lubowitz15")
     if err != nil {
         log.Fatal(err)
     }
@@ -263,17 +273,20 @@ func main() {
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
 | `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
 | `username`                                                 | *string*                                                   | :heavy_check_mark:                                         | The name that needs to be fetched. Use user1 for testing.  |
-
+| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
 
 ### Response
 
 **[*operations.GetUserByNameResponse](../../models/operations/getuserbynameresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## UpdateUser
 
@@ -286,8 +299,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"github.com/bflad/petstore-sdk/models/components"
 	"context"
+	"github.com/bflad/petstore-sdk/models/components"
 	"log"
 )
 
@@ -295,9 +308,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var username string = "<value>"
 
-    var user *components.User = &components.User{
+    ctx := context.Background()
+    res, err := s.User.UpdateUser(ctx, "Dandre_Hand41", &components.User{
         ID: petstoresdk.Int64(10),
         Username: petstoresdk.String("theUser"),
         FirstName: petstoresdk.String("John"),
@@ -306,9 +319,7 @@ func main() {
         Password: petstoresdk.String("12345"),
         Phone: petstoresdk.String("12345"),
         UserStatus: petstoresdk.Int(1),
-    }
-    ctx := context.Background()
-    res, err := s.User.UpdateUser(ctx, username, user)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -320,19 +331,22 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `username`                                            | *string*                                              | :heavy_check_mark:                                    | name that needs to be updated                         |
-| `user`                                                | [*components.User](../../models/components/user.md)   | :heavy_minus_sign:                                    | Update an existent user in the store                  |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `username`                                               | *string*                                                 | :heavy_check_mark:                                       | name that needs to be updated                            |
+| `user`                                                   | [*components.User](../../models/components/user.md)      | :heavy_minus_sign:                                       | Update an existent user in the store                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.UpdateUserResponse](../../models/operations/updateuserresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## DeleteUser
 
@@ -353,9 +367,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var username string = "<value>"
+
     ctx := context.Background()
-    res, err := s.User.DeleteUser(ctx, username)
+    res, err := s.User.DeleteUser(ctx, "Demetris_Schmitt")
     if err != nil {
         log.Fatal(err)
     }
@@ -367,18 +381,21 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `username`                                            | *string*                                              | :heavy_check_mark:                                    | The name that needs to be deleted                     |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `username`                                               | *string*                                                 | :heavy_check_mark:                                       | The name that needs to be deleted                        |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.DeleteUserResponse](../../models/operations/deleteuserresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |

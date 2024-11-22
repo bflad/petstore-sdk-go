@@ -1,6 +1,5 @@
 # PetstoreSDK
 
-
 ## Overview
 
 Petstore - OpenAPI 3.1: This is a sample Pet Store Server based on the OpenAPI 3.1 specification.
@@ -12,5 +11,3 @@ Some useful links:
 
 Find out more about Swagger
 <http://swagger.io>
-### Available Operations
-

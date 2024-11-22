@@ -1,4 +1,5 @@
 workflowVersion: 1.0.0
+speakeasyVersion: latest
 sources:
     sample-source:
         inputs:
@@ -9,3 +10,7 @@ targets:
     petstore-sdk:
         target: go
         source: sample-source
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/playground-wnq/playground-testing/sample-source-code-samples
+            blocking: false

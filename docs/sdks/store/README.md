@@ -7,6 +7,7 @@ Access to Petstore orders
 
 Find out more about our store
 <http://swagger.io>
+
 ### Available Operations
 
 * [GetInventory](#getinventory) - Returns pet inventories by status
@@ -47,19 +48,22 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.GetInventoryResponse](../../models/operations/getinventoryresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## PlaceOrder
 
@@ -72,8 +76,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"github.com/bflad/petstore-sdk/models/components"
 	"context"
+	"github.com/bflad/petstore-sdk/models/components"
 	"log"
 )
 
@@ -81,14 +85,14 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var request *components.Order = &components.Order{
+
+    ctx := context.Background()
+    res, err := s.Store.PlaceOrder(ctx, &components.Order{
         ID: petstoresdk.Int64(10),
         PetID: petstoresdk.Int64(198772),
         Quantity: petstoresdk.Int(7),
         Status: components.OrderStatusApproved.ToPointer(),
-    }
-    ctx := context.Background()
-    res, err := s.Store.PlaceOrder(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -100,20 +104,23 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `request`                                             | [components.Order](../../models/components/order.md)  | :heavy_check_mark:                                    | The request object to use for the request.            |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `request`                                                | [components.Order](../../models/components/order.md)     | :heavy_check_mark:                                       | The request object to use for the request.               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.PlaceOrderResponse](../../models/operations/placeorderresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## GetOrderByID
 
@@ -134,9 +141,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var orderID int64 = 614993
+
     ctx := context.Background()
-    res, err := s.Store.GetOrderByID(ctx, orderID)
+    res, err := s.Store.GetOrderByID(ctx, 614993)
     if err != nil {
         log.Fatal(err)
     }
@@ -148,21 +155,24 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `orderID`                                             | *int64*                                               | :heavy_check_mark:                                    | ID of order that needs to be fetched                  |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `orderID`                                                | *int64*                                                  | :heavy_check_mark:                                       | ID of order that needs to be fetched                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.GetOrderByIDResponse](../../models/operations/getorderbyidresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
 
 ## DeleteOrder
 
@@ -183,9 +193,9 @@ func main() {
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
-    var orderID int64 = 127902
+
     ctx := context.Background()
-    res, err := s.Store.DeleteOrder(ctx, orderID)
+    res, err := s.Store.DeleteOrder(ctx, 127902)
     if err != nil {
         log.Fatal(err)
     }
@@ -197,18 +207,21 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `orderID`                                             | *int64*                                               | :heavy_check_mark:                                    | ID of the order that needs to be deleted              |
-
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `orderID`                                                | *int64*                                                  | :heavy_check_mark:                                       | ID of the order that needs to be deleted                 |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
 **[*operations.DeleteOrderResponse](../../models/operations/deleteorderresponse.md), error**
-| Error Object                   | Status Code                    | Content Type                   |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | sdkerrors.APIErrorInvalidInput | 400                            | application/json               |
 | sdkerrors.APIErrorUnauthorized | 401                            | application/json               |
 | sdkerrors.APIErrorNotFound     | 404                            | application/json               |
-| sdkerrors.SDKError             | 4xx-5xx                        | */*                            |
+| sdkerrors.SDKError             | 4XX, 5XX                       | \*/\*                          |
