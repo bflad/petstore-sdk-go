@@ -1,0 +1,26 @@
+name: Speakeasy Testing
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      target:
+        required: true
+        default: all
+        type: string
+permissions:
+  contents: read
+jobs:
+  Go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+      - run: curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+      - run: speakeasy test
