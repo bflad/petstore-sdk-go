@@ -24,3 +24,5 @@ jobs:
           go-version-file: "go.mod"
       - run: curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
       - run: speakeasy test
+        env:
+          SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
