@@ -15,8 +15,10 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
+  mockServer:
+    disabled: false
 go:
-  version: 0.1.0
+  version: 0.2.3
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
   clientServerStatusCodesAsErrors: true

@@ -16,6 +16,8 @@ import (
 
 // ServerList contains the list of servers available to the SDK
 var ServerList = []string{
+	// Mock API server.
+	"http://localhost:18080",
 	// A per-environment API.
 	"https://{environment}.petstore.io",
 }
@@ -210,10 +212,11 @@ func New(opts ...SDKOption) *PetstoreSDK {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.1.0",
+			SDKVersion:        "0.2.3",
 			GenVersion:        "2.461.4",
-			UserAgent:         "speakeasy-sdk/go 0.1.0 2.461.4 1.0.0 github.com/bflad/petstore-sdk",
+			UserAgent:         "speakeasy-sdk/go 0.2.3 2.461.4 1.0.0 github.com/bflad/petstore-sdk",
 			ServerDefaults: []map[string]string{
+				{},
 				{
 					"environment": "prod",
 				},

@@ -322,10 +322,58 @@ func main() {
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Server Variables
+### Select Server by Index
 
-The default server `https://{environment}.petstore.io` contains variables and is set to `https://prod.petstore.io` by default. To override default values, the following options are available when initializing the SDK client instance:
+You can override the default server globally using the `WithServerIndex(serverIndex int)` option when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
+
+| #   | Server                              | Variables                       | Default values |
+| --- | ----------------------------------- | ------------------------------- | -------------- |
+| 0   | `http://localhost:18080`            |                                 |                |
+| 1   | `https://{environment}.petstore.io` | `environment ServerEnvironment` | `"prod"`       |
+
+If the selected server has variables, you may override their default values using their associated option(s):
  * `WithEnvironment(environment ServerEnvironment)`
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
+	"github.com/bflad/petstore-sdk/models/components"
+	"log"
+)
+
+func main() {
+	s := petstoresdk.New(
+		petstoresdk.WithServerIndex(1),
+		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
+	)
+
+	ctx := context.Background()
+	res, err := s.Pet.UpdatePet(ctx, components.Pet{
+		ID:   petstoresdk.Int64(10),
+		Name: "doggie",
+		Category: &components.Category{
+			ID:   petstoresdk.Int64(1),
+			Name: petstoresdk.String("Dogs"),
+		},
+		PhotoUrls: []string{
+			"<value>",
+			"<value>",
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.Pet != nil {
+		// handle response
+	}
+}
+
+```
 
 ### Override Server URL Per-Client
 
@@ -342,7 +390,7 @@ import (
 
 func main() {
 	s := petstoresdk.New(
-		petstoresdk.WithServerURL("https://prod.petstore.io"),
+		petstoresdk.WithServerURL("http://localhost:18080"),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 

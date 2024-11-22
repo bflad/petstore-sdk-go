@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
-  docChecksum: 7c524b4be7afdadc4b2f448072865ac4
+  docChecksum: ff378144859e27edc2f84531f7e7c845
   docVersion: 1.0.0
   speakeasyVersion: 1.443.0
   generationVersion: 2.461.4
-  releaseVersion: 0.1.0
-  configChecksum: f317fab8c0e6ebb2afd4da65467ffa1f
+  releaseVersion: 0.2.3
+  configChecksum: 70b5aeea26153cbaee97ec73dcc3f8f7
 features:
   go:
     additionalDependencies: 0.1.0
@@ -21,6 +21,7 @@ features:
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
     intellisenseMarkdownSupport: 0.1.0
+    mockServer: 0.1.0
     responseFormat: 0.1.2
     retries: 2.83.1
     sdkHooks: 0.1.0
@@ -128,6 +129,92 @@ generatedFiles:
   - petstoresdk.go
   - retry/config.go
   - store.go
+  - tests/files.go
+  - tests/mockserver/Dockerfile
+  - tests/mockserver/README.md
+  - tests/mockserver/go.mod
+  - tests/mockserver/go.sum
+  - tests/mockserver/internal/handler/assert/header.go
+  - tests/mockserver/internal/handler/assert/parameter.go
+  - tests/mockserver/internal/handler/assert/pointer.go
+  - tests/mockserver/internal/handler/assert/security.go
+  - tests/mockserver/internal/handler/doc.go
+  - tests/mockserver/internal/handler/generated_handler.go
+  - tests/mockserver/internal/handler/generated_handlers.go
+  - tests/mockserver/internal/handler/op_addpet.go
+  - tests/mockserver/internal/handler/op_createuser.go
+  - tests/mockserver/internal/handler/op_createuserswithlistinput.go
+  - tests/mockserver/internal/handler/op_deleteorder.go
+  - tests/mockserver/internal/handler/op_deletepet.go
+  - tests/mockserver/internal/handler/op_deleteuser.go
+  - tests/mockserver/internal/handler/op_findpetsbystatus.go
+  - tests/mockserver/internal/handler/op_findpetsbytags.go
+  - tests/mockserver/internal/handler/op_getinventory.go
+  - tests/mockserver/internal/handler/op_getorderbyid.go
+  - tests/mockserver/internal/handler/op_getpetbyid.go
+  - tests/mockserver/internal/handler/op_getuserbyname.go
+  - tests/mockserver/internal/handler/op_loginuser.go
+  - tests/mockserver/internal/handler/op_logoutuser.go
+  - tests/mockserver/internal/handler/op_placeorder.go
+  - tests/mockserver/internal/handler/op_updatepet.go
+  - tests/mockserver/internal/handler/op_updateuser.go
+  - tests/mockserver/internal/logging/doc.go
+  - tests/mockserver/internal/logging/formats.go
+  - tests/mockserver/internal/logging/http_file.go
+  - tests/mockserver/internal/logging/http_logger.go
+  - tests/mockserver/internal/logging/levels.go
+  - tests/mockserver/internal/logging/logger.go
+  - tests/mockserver/internal/logging/oas_operation.go
+  - tests/mockserver/internal/logging/oas_operation_call.go
+  - tests/mockserver/internal/sdk/models/components/apiresponse.go
+  - tests/mockserver/internal/sdk/models/components/category.go
+  - tests/mockserver/internal/sdk/models/components/httpmetadata.go
+  - tests/mockserver/internal/sdk/models/components/order.go
+  - tests/mockserver/internal/sdk/models/components/pet.go
+  - tests/mockserver/internal/sdk/models/components/security.go
+  - tests/mockserver/internal/sdk/models/components/tag.go
+  - tests/mockserver/internal/sdk/models/components/user.go
+  - tests/mockserver/internal/sdk/models/operations/addpet.go
+  - tests/mockserver/internal/sdk/models/operations/createuser.go
+  - tests/mockserver/internal/sdk/models/operations/createuserswithlistinput.go
+  - tests/mockserver/internal/sdk/models/operations/deleteorder.go
+  - tests/mockserver/internal/sdk/models/operations/deletepet.go
+  - tests/mockserver/internal/sdk/models/operations/deleteuser.go
+  - tests/mockserver/internal/sdk/models/operations/findpetsbystatus.go
+  - tests/mockserver/internal/sdk/models/operations/findpetsbytags.go
+  - tests/mockserver/internal/sdk/models/operations/getinventory.go
+  - tests/mockserver/internal/sdk/models/operations/getorderbyid.go
+  - tests/mockserver/internal/sdk/models/operations/getpetbyid.go
+  - tests/mockserver/internal/sdk/models/operations/getuserbyname.go
+  - tests/mockserver/internal/sdk/models/operations/loginuser.go
+  - tests/mockserver/internal/sdk/models/operations/logoutuser.go
+  - tests/mockserver/internal/sdk/models/operations/placeorder.go
+  - tests/mockserver/internal/sdk/models/operations/updatepet.go
+  - tests/mockserver/internal/sdk/models/operations/updateuser.go
+  - tests/mockserver/internal/sdk/models/operations/uploadfile.go
+  - tests/mockserver/internal/sdk/models/sdkerrors/apierrorinvalidinput.go
+  - tests/mockserver/internal/sdk/models/sdkerrors/apierrornotfound.go
+  - tests/mockserver/internal/sdk/models/sdkerrors/apierrorunauthorized.go
+  - tests/mockserver/internal/sdk/types/bigint.go
+  - tests/mockserver/internal/sdk/types/date.go
+  - tests/mockserver/internal/sdk/types/datetime.go
+  - tests/mockserver/internal/sdk/types/decimal.go
+  - tests/mockserver/internal/sdk/types/pointers.go
+  - tests/mockserver/internal/sdk/utils/json.go
+  - tests/mockserver/internal/sdk/utils/reflect.go
+  - tests/mockserver/internal/sdk/utils/sort.go
+  - tests/mockserver/internal/server/doc.go
+  - tests/mockserver/internal/server/generated_handlers.go
+  - tests/mockserver/internal/server/internal_handlers.go
+  - tests/mockserver/internal/server/server.go
+  - tests/mockserver/internal/server/server_option.go
+  - tests/mockserver/internal/server/templates/log/index.html.tmpl
+  - tests/mockserver/internal/server/templates/log/operation.html.tmpl
+  - tests/mockserver/internal/server/templates/log/style.css.tmpl
+  - tests/mockserver/main.go
+  - tests/pet_test.go
+  - tests/store_test.go
+  - tests/user_test.go
   - types/bigint.go
   - types/date.go
   - types/datetime.go
@@ -212,6 +299,8 @@ examples:
         path:
           petId: 565380
         query: {}
+      requestBody:
+        application/octet-stream: "0x89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489000000017352474200aece1ce90000000d49444154185763f8ff9fe13f0007fd02fe895163f40000000049454e44ae426082"
   getInventory:
     speakeasy-default-get-inventory:
       responses:

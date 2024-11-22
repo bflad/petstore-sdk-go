@@ -362,6 +362,7 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
+	"os"
 	"context"
 	"log"
 )
@@ -371,8 +372,13 @@ func main() {
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
+    requestBody, fileErr := os.Open("example.file")
+    if fileErr != nil {
+        panic(fileErr)
+    }
+
     ctx := context.Background()
-    res, err := s.Pet.UploadFile(ctx, 565380, nil, nil)
+    res, err := s.Pet.UploadFile(ctx, 565380, nil, requestBody)
     if err != nil {
         log.Fatal(err)
     }

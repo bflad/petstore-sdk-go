@@ -21,6 +21,8 @@ externalDocs:
 security:
   - api_key: []
 servers:
+  - url: http://localhost:18080
+    description: Mock API server.
   - url: https://{environment}.petstore.io
     description: A per-environment API.
     variables:
@@ -231,6 +233,7 @@ paths:
 
   "/pet/{petId}/uploadImage":
     post:
+      x-speakeasy-test: false
       tags:
       - pet
       summary: uploads an image
@@ -724,4 +727,4 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorInvalidInput'
-
+x-speakeasy-test: true
