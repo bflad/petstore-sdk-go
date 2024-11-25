@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: "go.mod"
-      - run: curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+      - run: curl -fsSL https://go.speakeasy.com/cli-install.sh | sh
       - uses: docker/build-push-action@v6
         with:
           context: tests/mockserver
