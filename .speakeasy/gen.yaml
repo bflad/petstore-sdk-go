@@ -18,7 +18,7 @@ generation:
   mockServer:
     disabled: false
 go:
-  version: 0.2.3
+  version: 0.2.4
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
   clientServerStatusCodesAsErrors: true

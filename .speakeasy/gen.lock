@@ -3,10 +3,12 @@ id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
   docChecksum: ff378144859e27edc2f84531f7e7c845
   docVersion: 1.0.0
-  speakeasyVersion: 1.443.0
+  speakeasyVersion: 1.444.3
   generationVersion: 2.461.4
-  releaseVersion: 0.2.3
-  configChecksum: 70b5aeea26153cbaee97ec73dcc3f8f7
+  releaseVersion: 0.2.4
+  configChecksum: b1833cf305a33c2dbbb5f6548884c831
+  repoURL: https://github.com/bflad/petstore-sdk-go.git
+  installationURL: https://github.com/bflad/petstore-sdk-go
 features:
   go:
     additionalDependencies: 0.1.0
