@@ -5,6 +5,7 @@ package tests
 import (
 	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
+	"github.com/bflad/petstore-sdk/internal/utils"
 	"github.com/bflad/petstore-sdk/models/components"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -13,6 +14,8 @@ import (
 
 func TestStore_GetInventory(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("getInventory")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -20,6 +23,7 @@ func TestStore_GetInventory(t *testing.T) {
 	res, err := s.Store.GetInventory(ctx)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
 	assert.Equal(t, map[string]int{
 		"key": 373538,
 	}, res.Object)
@@ -27,6 +31,8 @@ func TestStore_GetInventory(t *testing.T) {
 
 func TestStore_PlaceOrder(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("placeOrder")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -39,6 +45,7 @@ func TestStore_PlaceOrder(t *testing.T) {
 	})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Order)
 	assert.Equal(t, &components.Order{
 		ID:       petstoresdk.Int64(10),
 		PetID:    petstoresdk.Int64(198772),
@@ -49,6 +56,8 @@ func TestStore_PlaceOrder(t *testing.T) {
 
 func TestStore_GetOrderByID(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("getOrderById")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -56,6 +65,7 @@ func TestStore_GetOrderByID(t *testing.T) {
 	res, err := s.Store.GetOrderByID(ctx, 614993)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Order)
 	assert.Equal(t, &components.Order{
 		ID:       petstoresdk.Int64(10),
 		PetID:    petstoresdk.Int64(198772),
@@ -66,6 +76,8 @@ func TestStore_GetOrderByID(t *testing.T) {
 
 func TestStore_DeleteOrder(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("deleteOrder")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -73,6 +85,7 @@ func TestStore_DeleteOrder(t *testing.T) {
 	res, err := s.Store.DeleteOrder(ctx, 127902)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Order)
 	assert.Equal(t, &components.Order{
 		ID:       petstoresdk.Int64(10),
 		PetID:    petstoresdk.Int64(198772),

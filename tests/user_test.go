@@ -5,6 +5,7 @@ package tests
 import (
 	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
+	"github.com/bflad/petstore-sdk/internal/utils"
 	"github.com/bflad/petstore-sdk/models/components"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -13,6 +14,8 @@ import (
 
 func TestUser_CreateUser(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("createUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -29,6 +32,7 @@ func TestUser_CreateUser(t *testing.T) {
 	})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.User)
 	assert.Equal(t, &components.User{
 		ID:         petstoresdk.Int64(10),
 		Username:   petstoresdk.String("theUser"),
@@ -43,6 +47,8 @@ func TestUser_CreateUser(t *testing.T) {
 
 func TestUser_CreateUsersWithListInput(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("createUsersWithListInput")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -61,6 +67,7 @@ func TestUser_CreateUsersWithListInput(t *testing.T) {
 	})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.User)
 	assert.Equal(t, &components.User{
 		ID:         petstoresdk.Int64(10),
 		Username:   petstoresdk.String("theUser"),
@@ -75,6 +82,8 @@ func TestUser_CreateUsersWithListInput(t *testing.T) {
 
 func TestUser_LoginUser(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("loginUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -82,11 +91,14 @@ func TestUser_LoginUser(t *testing.T) {
 	res, err := s.User.LoginUser(ctx, nil, nil)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.String)
 	assert.Equal(t, petstoresdk.String("<value>"), res.String)
 }
 
 func TestUser_LogoutUser(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("logoutUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -98,6 +110,8 @@ func TestUser_LogoutUser(t *testing.T) {
 
 func TestUser_GetUserByName(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("getUserByName")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -105,6 +119,7 @@ func TestUser_GetUserByName(t *testing.T) {
 	res, err := s.User.GetUserByName(ctx, "Zachery_Lubowitz15")
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.User)
 	assert.Equal(t, &components.User{
 		ID:         petstoresdk.Int64(10),
 		Username:   petstoresdk.String("theUser"),
@@ -119,6 +134,8 @@ func TestUser_GetUserByName(t *testing.T) {
 
 func TestUser_UpdateUser(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("updateUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -139,6 +156,8 @@ func TestUser_UpdateUser(t *testing.T) {
 
 func TestUser_DeleteUser(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("deleteUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -146,6 +165,7 @@ func TestUser_DeleteUser(t *testing.T) {
 	res, err := s.User.DeleteUser(ctx, "Demetris_Schmitt")
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.User)
 	assert.Equal(t, &components.User{
 		ID:         petstoresdk.Int64(10),
 		Username:   petstoresdk.String("theUser"),

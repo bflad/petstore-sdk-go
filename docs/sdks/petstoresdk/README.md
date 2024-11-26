@@ -11,3 +11,5 @@ Some useful links:
 
 Find out more about Swagger
 <http://swagger.io>
+
+### Available Operations

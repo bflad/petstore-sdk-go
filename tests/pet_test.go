@@ -5,6 +5,7 @@ package tests
 import (
 	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
+	"github.com/bflad/petstore-sdk/internal/utils"
 	"github.com/bflad/petstore-sdk/models/components"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -13,6 +14,8 @@ import (
 
 func TestPet_UpdatePet(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("updatePet")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -31,6 +34,7 @@ func TestPet_UpdatePet(t *testing.T) {
 	})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -46,6 +50,8 @@ func TestPet_UpdatePet(t *testing.T) {
 
 func TestPet_AddPet(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("addPet")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -63,6 +69,7 @@ func TestPet_AddPet(t *testing.T) {
 	})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -78,6 +85,8 @@ func TestPet_AddPet(t *testing.T) {
 
 func TestPet_FindPetsByStatus(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("findPetsByStatus")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -85,6 +94,7 @@ func TestPet_FindPetsByStatus(t *testing.T) {
 	res, err := s.Pet.FindPetsByStatus(ctx, nil)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Pets)
 	assert.Equal(t, []components.Pet{
 		components.Pet{
 			ID:   petstoresdk.Int64(10),
@@ -124,6 +134,8 @@ func TestPet_FindPetsByStatus(t *testing.T) {
 
 func TestPet_FindPetsByTags(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("findPetsByTags")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -131,6 +143,7 @@ func TestPet_FindPetsByTags(t *testing.T) {
 	res, err := s.Pet.FindPetsByTags(ctx, nil)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Pets)
 	assert.Equal(t, []components.Pet{
 		components.Pet{
 			ID:   petstoresdk.Int64(10),
@@ -150,6 +163,8 @@ func TestPet_FindPetsByTags(t *testing.T) {
 
 func TestPet_GetPetByID(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("getPetById")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -157,6 +172,7 @@ func TestPet_GetPetByID(t *testing.T) {
 	res, err := s.Pet.GetPetByID(ctx, 504151)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -172,6 +188,8 @@ func TestPet_GetPetByID(t *testing.T) {
 
 func TestPet_DeletePet(t *testing.T) {
 	s := petstoresdk.New(
+		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
+		petstoresdk.WithClient(createTestHTTPClient("deletePet")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -179,6 +197,7 @@ func TestPet_DeletePet(t *testing.T) {
 	res, err := s.Pet.DeletePet(ctx, 441876, nil)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",

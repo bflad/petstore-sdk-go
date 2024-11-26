@@ -4,7 +4,6 @@ package handler
 
 import (
 	"context"
-	"mockserver/internal/logging"
 	"net/http"
 )
 
@@ -13,14 +12,8 @@ type GeneratedHandler struct {
 	// HTTP request handler function.
 	handlerFunc http.HandlerFunc
 
-	// Directory for raw HTTP request and response files.
-	httpFileDir *logging.HTTPFileDirectory
-
 	// HTTP method, such as GET.
 	method string
-
-	// OAS operation identifier.
-	operationId string
 
 	// URL path, such as /path.
 	path string
@@ -28,19 +21,17 @@ type GeneratedHandler struct {
 
 // NewGeneratedHandler creates a generated handler via method, path, and handler
 // function.
-func NewGeneratedHandler(ctx context.Context, httpFileDir *logging.HTTPFileDirectory, method string, path string, operationId string, handlerFunc http.HandlerFunc) *GeneratedHandler {
+func NewGeneratedHandler(ctx context.Context, method string, path string, handlerFunc http.HandlerFunc) *GeneratedHandler {
 	return &GeneratedHandler{
 		handlerFunc: handlerFunc,
-		httpFileDir: httpFileDir,
 		method:      method,
-		operationId: operationId,
 		path:        path,
 	}
 }
 
 // HandlerFunc returns the underlying HTTP handler function.
 func (h GeneratedHandler) HandlerFunc() http.HandlerFunc {
-	return h.httpFileDir.HandlerFunc(h.operationId, h.handlerFunc)
+	return h.handlerFunc
 }
 
 // HandlerPattern returns the method and path in a [http.ServeMux] compatible

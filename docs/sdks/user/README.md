@@ -26,8 +26,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"context"
 	"github.com/bflad/petstore-sdk/models/components"
+	"context"
 	"log"
 )
 
@@ -85,8 +85,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"context"
 	"github.com/bflad/petstore-sdk/models/components"
+	"context"
 	"log"
 )
 
@@ -299,8 +299,8 @@ package main
 
 import(
 	petstoresdk "github.com/bflad/petstore-sdk"
-	"context"
 	"github.com/bflad/petstore-sdk/models/components"
+	"context"
 	"log"
 )
 
