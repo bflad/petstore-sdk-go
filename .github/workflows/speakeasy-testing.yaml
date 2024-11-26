@@ -23,12 +23,6 @@ jobs:
         with:
           go-version-file: "go.mod"
       - run: curl -fsSL https://go.speakeasy.com/cli-install.sh | sh
-      - uses: docker/build-push-action@v6
-        with:
-          context: tests/mockserver
-          push: false
-          tags: mockserver-go:latest
-      - run: docker run -d -p 18080:18080 mockserver-go:latest
       - run: speakeasy test
         env:
           SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
