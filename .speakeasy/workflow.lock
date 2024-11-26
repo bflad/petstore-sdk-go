@@ -2,18 +2,19 @@ speakeasyVersion: 1.443.0
 sources:
     sample-source:
         sourceNamespace: sample-source
-        sourceRevisionDigest: sha256:209fa5143595e69b43cbc4cfe5a9f83db4efcc511893eacc1b2d9310462b5bbd
-        sourceBlobDigest: sha256:5a4babe6df511b69b5f10f66f8059720694b52dbc620bb7a90a53ad91142b2e3
+        sourceRevisionDigest: sha256:9a7b640b2be52fe9b7cc327c509fe7b23bd6b7d4b7f51ea649d8d935ee9bac7f
+        sourceBlobDigest: sha256:4b8e2ff89f360ea10d2c69ca57c9846852c9f3cb97ea12bccbdb3041da8887a3
         tags:
             - latest
+            - speakeasy-sdk-regen-1719518700
 targets:
     petstore-sdk:
         source: sample-source
         sourceNamespace: sample-source
-        sourceRevisionDigest: sha256:209fa5143595e69b43cbc4cfe5a9f83db4efcc511893eacc1b2d9310462b5bbd
-        sourceBlobDigest: sha256:5a4babe6df511b69b5f10f66f8059720694b52dbc620bb7a90a53ad91142b2e3
+        sourceRevisionDigest: sha256:9a7b640b2be52fe9b7cc327c509fe7b23bd6b7d4b7f51ea649d8d935ee9bac7f
+        sourceBlobDigest: sha256:4b8e2ff89f360ea10d2c69ca57c9846852c9f3cb97ea12bccbdb3041da8887a3
         codeSamplesNamespace: sample-source-code-samples
-        codeSamplesRevisionDigest: sha256:f78e3c2cd6f87e55c640bbbcbb2ccc11ac2f9fe2dfb1cbad7017050a0bb1e8f5
+        codeSamplesRevisionDigest: sha256:ae8a76a9874ca871d0ab7fe77e3ae6f07f7acf54db47f3d89553420f82f7f50b
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
