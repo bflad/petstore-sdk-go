@@ -3,10 +3,10 @@ id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
   docChecksum: ff378144859e27edc2f84531f7e7c845
   docVersion: 1.0.0
-  speakeasyVersion: 0.0.1
-  generationVersion: 2.464.0
-  releaseVersion: 0.3.1
-  configChecksum: 792416c21b84ab51bb74065c0713b8ab
+  speakeasyVersion: 1.448.1
+  generationVersion: 2.466.1
+  releaseVersion: 0.3.3
+  configChecksum: d6b2a7fe901f93f02573d4b5da07be6d
 features:
   go:
     additionalDependencies: 0.1.0
@@ -25,7 +25,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.83.1
     sdkHooks: 0.1.0
-    tests: 0.7.0
+    tests: 0.7.1
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
