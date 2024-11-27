@@ -212,9 +212,9 @@ func New(opts ...SDKOption) *PetstoreSDK {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.3.3",
-			GenVersion:        "2.466.1",
-			UserAgent:         "speakeasy-sdk/go 0.3.3 2.466.1 1.0.0 github.com/bflad/petstore-sdk",
+			SDKVersion:        "0.3.4",
+			GenVersion:        "2.467.4",
+			UserAgent:         "speakeasy-sdk/go 0.3.4 2.467.4 1.0.0 github.com/bflad/petstore-sdk",
 			ServerDefaults: []map[string]string{
 				{},
 				{
