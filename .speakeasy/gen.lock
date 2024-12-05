@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
-  docChecksum: ff378144859e27edc2f84531f7e7c845
+  docChecksum: fd2ff30d1208d6f0d69d1b824ff2d22f
   docVersion: 1.0.0
-  speakeasyVersion: 1.448.1
-  generationVersion: 2.466.1
+  speakeasyVersion: 1.452.0
+  generationVersion: 2.472.1
   releaseVersion: 0.3.3
-  configChecksum: d6b2a7fe901f93f02573d4b5da07be6d
+  configChecksum: 1348642e6a0b795424d9300eba7a6c21
 features:
   go:
     additionalDependencies: 0.1.0
@@ -21,11 +21,9 @@ features:
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
     intellisenseMarkdownSupport: 0.1.0
-    mockServer: 0.1.0
     responseFormat: 0.1.2
     retries: 2.83.1
     sdkHooks: 0.1.0
-    tests: 0.7.1
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -130,96 +128,6 @@ generatedFiles:
   - petstoresdk.go
   - retry/config.go
   - store.go
-  - tests/files.go
-  - tests/mockserver/Dockerfile
-  - tests/mockserver/Makefile
-  - tests/mockserver/README.md
-  - tests/mockserver/go.mod
-  - tests/mockserver/go.sum
-  - tests/mockserver/internal/handler/assert/contenttype.go
-  - tests/mockserver/internal/handler/assert/header.go
-  - tests/mockserver/internal/handler/assert/parameter.go
-  - tests/mockserver/internal/handler/assert/pointer.go
-  - tests/mockserver/internal/handler/assert/security.go
-  - tests/mockserver/internal/handler/doc.go
-  - tests/mockserver/internal/handler/generated_handler.go
-  - tests/mockserver/internal/handler/generated_handlers.go
-  - tests/mockserver/internal/handler/pathdeletepetpetid.go
-  - tests/mockserver/internal/handler/pathdeletestoreorderorderid.go
-  - tests/mockserver/internal/handler/pathdeleteuserusername.go
-  - tests/mockserver/internal/handler/pathgetpetfindbystatus.go
-  - tests/mockserver/internal/handler/pathgetpetfindbytags.go
-  - tests/mockserver/internal/handler/pathgetpetpetid.go
-  - tests/mockserver/internal/handler/pathgetstoreinventory.go
-  - tests/mockserver/internal/handler/pathgetstoreorderorderid.go
-  - tests/mockserver/internal/handler/pathgetuserlogin.go
-  - tests/mockserver/internal/handler/pathgetuserlogout.go
-  - tests/mockserver/internal/handler/pathgetuserusername.go
-  - tests/mockserver/internal/handler/pathpostpet.go
-  - tests/mockserver/internal/handler/pathpoststoreorder.go
-  - tests/mockserver/internal/handler/pathpostuser.go
-  - tests/mockserver/internal/handler/pathpostusercreatewithlist.go
-  - tests/mockserver/internal/handler/pathputpet.go
-  - tests/mockserver/internal/handler/pathputuserusername.go
-  - tests/mockserver/internal/handler/values/files.go
-  - tests/mockserver/internal/logging/doc.go
-  - tests/mockserver/internal/logging/formats.go
-  - tests/mockserver/internal/logging/http_file.go
-  - tests/mockserver/internal/logging/http_logger.go
-  - tests/mockserver/internal/logging/levels.go
-  - tests/mockserver/internal/logging/logger.go
-  - tests/mockserver/internal/logging/oas_operation.go
-  - tests/mockserver/internal/logging/oas_operation_call.go
-  - tests/mockserver/internal/sdk/models/components/apiresponse.go
-  - tests/mockserver/internal/sdk/models/components/category.go
-  - tests/mockserver/internal/sdk/models/components/httpmetadata.go
-  - tests/mockserver/internal/sdk/models/components/order.go
-  - tests/mockserver/internal/sdk/models/components/pet.go
-  - tests/mockserver/internal/sdk/models/components/security.go
-  - tests/mockserver/internal/sdk/models/components/tag.go
-  - tests/mockserver/internal/sdk/models/components/user.go
-  - tests/mockserver/internal/sdk/models/operations/addpet.go
-  - tests/mockserver/internal/sdk/models/operations/createuser.go
-  - tests/mockserver/internal/sdk/models/operations/createuserswithlistinput.go
-  - tests/mockserver/internal/sdk/models/operations/deleteorder.go
-  - tests/mockserver/internal/sdk/models/operations/deletepet.go
-  - tests/mockserver/internal/sdk/models/operations/deleteuser.go
-  - tests/mockserver/internal/sdk/models/operations/findpetsbystatus.go
-  - tests/mockserver/internal/sdk/models/operations/findpetsbytags.go
-  - tests/mockserver/internal/sdk/models/operations/getinventory.go
-  - tests/mockserver/internal/sdk/models/operations/getorderbyid.go
-  - tests/mockserver/internal/sdk/models/operations/getpetbyid.go
-  - tests/mockserver/internal/sdk/models/operations/getuserbyname.go
-  - tests/mockserver/internal/sdk/models/operations/loginuser.go
-  - tests/mockserver/internal/sdk/models/operations/logoutuser.go
-  - tests/mockserver/internal/sdk/models/operations/placeorder.go
-  - tests/mockserver/internal/sdk/models/operations/updatepet.go
-  - tests/mockserver/internal/sdk/models/operations/updateuser.go
-  - tests/mockserver/internal/sdk/models/operations/uploadfile.go
-  - tests/mockserver/internal/sdk/models/sdkerrors/apierrorinvalidinput.go
-  - tests/mockserver/internal/sdk/models/sdkerrors/apierrornotfound.go
-  - tests/mockserver/internal/sdk/models/sdkerrors/apierrorunauthorized.go
-  - tests/mockserver/internal/sdk/types/bigint.go
-  - tests/mockserver/internal/sdk/types/date.go
-  - tests/mockserver/internal/sdk/types/datetime.go
-  - tests/mockserver/internal/sdk/types/decimal.go
-  - tests/mockserver/internal/sdk/types/pointers.go
-  - tests/mockserver/internal/sdk/utils/json.go
-  - tests/mockserver/internal/sdk/utils/reflect.go
-  - tests/mockserver/internal/sdk/utils/sort.go
-  - tests/mockserver/internal/server/doc.go
-  - tests/mockserver/internal/server/generated_handlers.go
-  - tests/mockserver/internal/server/internal_handlers.go
-  - tests/mockserver/internal/server/server.go
-  - tests/mockserver/internal/server/server_option.go
-  - tests/mockserver/internal/server/templates/log/index.html.tmpl
-  - tests/mockserver/internal/server/templates/log/operation.html.tmpl
-  - tests/mockserver/internal/server/templates/log/style.css.tmpl
-  - tests/mockserver/main.go
-  - tests/pet_test.go
-  - tests/store_test.go
-  - tests/testclient.go
-  - tests/user_test.go
   - types/bigint.go
   - types/date.go
   - types/datetime.go
@@ -415,21 +323,4 @@ examples:
           application/json: {"status": 401, "error": "Unauthorized"}
         "404":
           application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
-generatedTests:
-  updatePet: "2024-11-26T13:58:39-05:00"
-  addPet: "2024-11-26T13:58:39-05:00"
-  findPetsByStatus: "2024-11-26T13:58:39-05:00"
-  findPetsByTags: "2024-11-26T13:58:39-05:00"
-  getPetById: "2024-11-26T13:58:39-05:00"
-  deletePet: "2024-11-26T13:58:39-05:00"
-  getInventory: "2024-11-26T13:58:39-05:00"
-  placeOrder: "2024-11-26T13:58:39-05:00"
-  getOrderById: "2024-11-26T13:58:39-05:00"
-  deleteOrder: "2024-11-26T13:58:39-05:00"
-  createUser: "2024-11-26T13:58:39-05:00"
-  createUsersWithListInput: "2024-11-26T13:58:39-05:00"
-  loginUser: "2024-11-26T13:58:39-05:00"
-  logoutUser: "2024-11-26T13:58:39-05:00"
-  getUserByName: "2024-11-26T13:58:39-05:00"
-  updateUser: "2024-11-26T13:58:39-05:00"
-  deleteUser: "2024-11-26T13:58:39-05:00"
+generatedTests: {}
