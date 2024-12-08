@@ -53,7 +53,7 @@ For more information about the API: [Find out more about Swagger](http://swagger
 
 To add the SDK as a dependency to your project:
 ```bash
-go get github.com/bflad/petstore-sdk
+go get github.com/bflad/petstore-sdk-go
 ```
 <!-- End SDK Installation [installation] -->
 
