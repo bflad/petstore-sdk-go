@@ -1,8 +1,8 @@
-speakeasyVersion: 1.452.0
+speakeasyVersion: 1.453.8
 sources:
     sample-source:
         sourceNamespace: sample-source
-        sourceRevisionDigest: sha256:e265b6cee37b5766581b9b33845923b98828044845f32bff5ba63fcd44e0c577
+        sourceRevisionDigest: sha256:c8e35b4c3a7309d22ab79ac622d6879fb9abfb64c5ea8ff513ec385022c11621
         sourceBlobDigest: sha256:c8b4f4f5c3276d985359490bda43dae95b8e23e6d0bde8b76eedf5a188b6ece2
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     petstore-sdk:
         source: sample-source
         sourceNamespace: sample-source
-        sourceRevisionDigest: sha256:e265b6cee37b5766581b9b33845923b98828044845f32bff5ba63fcd44e0c577
+        sourceRevisionDigest: sha256:c8e35b4c3a7309d22ab79ac622d6879fb9abfb64c5ea8ff513ec385022c11621
         sourceBlobDigest: sha256:c8b4f4f5c3276d985359490bda43dae95b8e23e6d0bde8b76eedf5a188b6ece2
         codeSamplesNamespace: sample-source-go-code-samples
-        codeSamplesRevisionDigest: sha256:a84edc323708d2ab17f3f159760e9593dd2b03125af425cf8150ca7fe215d5d5
+        codeSamplesRevisionDigest: sha256:0d986d462dab24944a6b41edabf5b090f13d07c053106e015e342a66990cbcba
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -32,3 +32,5 @@ workflow:
                 registry:
                     location: registry.speakeasyapi.dev/playground-wnq/playground-testing/sample-source-go-code-samples
                 blocking: false
+            testing:
+                enabled: true

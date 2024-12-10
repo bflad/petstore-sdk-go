@@ -14,3 +14,5 @@ targets:
             registry:
                 location: registry.speakeasyapi.dev/playground-wnq/playground-testing/sample-source-go-code-samples
             blocking: false
+        testing:
+            enabled: true
