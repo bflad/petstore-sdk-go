@@ -105,15 +105,11 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Pet.AddPet(ctx, components.Pet{
-        ID: petstoresdk.Int64(10),
-        Name: "doggie",
-        Category: &components.Category{
-            ID: petstoresdk.Int64(1),
-            Name: petstoresdk.String("Dogs"),
-        },
+        Name: "Fido",
         PhotoUrls: []string{
-            "<value>",
+            "https://www.example.com/fido.jpg",
         },
+        Status: components.StatusAvailable.ToPointer(),
     })
     if err != nil {
         log.Fatal(err)

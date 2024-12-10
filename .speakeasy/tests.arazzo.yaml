@@ -41,38 +41,6 @@ workflows:
               }
             type: simple
     x-speakeasy-test-group: pet
-  - workflowId: addPet
-    steps:
-      - stepId: test
-        operationId: addPet
-        requestBody:
-          contentType: application/json
-          payload:
-            category:
-              id: 1
-              name: Dogs
-            id: 10
-            name: doggie
-            photoUrls:
-              - <value>
-        successCriteria:
-          - condition: $statusCode == 200
-          - condition: $response.header.Content-Type == application/json
-          - context: $response.body
-            condition: |
-              {
-                "id": 10,
-                "name": "doggie",
-                "category": {
-                  "id": 1,
-                  "name": "Dogs"
-                },
-                "photoUrls": [
-                  "\u003cvalue\u003e"
-                ]
-              }
-            type: simple
-    x-speakeasy-test-group: pet
   - workflowId: findPetsByStatus
     steps:
       - stepId: test
@@ -418,3 +386,89 @@ workflows:
               }
             type: simple
     x-speakeasy-test-group: user
+  - workflowId: addPet-fido
+    steps:
+      - stepId: test
+        operationId: addPet
+        requestBody:
+          contentType: application/json
+          payload:
+            name: Fido
+            photoUrls:
+              - https://www.example.com/fido.jpg
+            status: available
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {
+                "id": 1,
+                "name": "Fido",
+                "photoUrls": [
+                  "https://www.example.com/fido.jpg"
+                ],
+                "status": "available"
+              }
+            type: simple
+    x-speakeasy-test-group: pet
+  - workflowId: addPet-rover
+    steps:
+      - stepId: test
+        operationId: addPet
+        requestBody:
+          contentType: application/json
+          payload:
+            name: Rover
+            photoUrls:
+              - https://www.example.com/rover1.jpg
+              - https://www.example.com/rover2.jpg
+            status: pending
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {
+                "id": 2,
+                "name": "Rover",
+                "photoUrls": [
+                  "https://www.example.com/rover1.jpg",
+                  "https://www.example.com/rover2.jpg"
+                ],
+                "status": "pending"
+              }
+            type: simple
+    x-speakeasy-test-group: pet
+  - workflowId: addPet
+    steps:
+      - stepId: test
+        operationId: addPet
+        requestBody:
+          contentType: application/json
+          payload:
+            category:
+              id: 1
+              name: Dogs
+            id: 10
+            name: doggie
+            photoUrls:
+              - <value>
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {
+                "id": 10,
+                "name": "doggie",
+                "category": {
+                  "id": 1,
+                  "name": "Dogs"
+                },
+                "photoUrls": [
+                  "\u003cvalue\u003e"
+                ]
+              }
+            type: simple
+    x-speakeasy-test-group: pet

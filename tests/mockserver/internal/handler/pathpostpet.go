@@ -16,12 +16,97 @@ func pathPostPet(dir *logging.HTTPFileDirectory) http.HandlerFunc {
 		test := req.Header.Get("x-speakeasy-test-name")
 
 		switch test {
+		case "addPet-fido":
+			dir.HandlerFunc("addPet", testAddPetAddPetFido)(w, req)
+		case "addPet-rover":
+			dir.HandlerFunc("addPet", testAddPetAddPetRover)(w, req)
 		case "addPet":
 			dir.HandlerFunc("addPet", testAddPetAddPet)(w, req)
 		default:
 			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
 		}
 	}
+}
+
+func testAddPetAddPetFido(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityHeader(req, "api_key", false); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.ContentType(req, "application/json", true); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/json"}); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	respBody := &components.Pet{
+		ID:   types.Int64(1),
+		Name: "Fido",
+		PhotoUrls: []string{
+			"https://www.example.com/fido.jpg",
+		},
+		Status: components.StatusAvailable.ToPointer(),
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testAddPetAddPetRover(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityHeader(req, "api_key", false); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.ContentType(req, "application/json", true); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/json"}); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	respBody := &components.Pet{
+		ID:   types.Int64(2),
+		Name: "Rover",
+		PhotoUrls: []string{
+			"https://www.example.com/rover1.jpg",
+			"https://www.example.com/rover2.jpg",
+		},
+		Status: components.StatusPending.ToPointer(),
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
 }
 
 func testAddPetAddPet(w http.ResponseWriter, req *http.Request) {

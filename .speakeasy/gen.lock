@@ -1,7 +1,7 @@
 lockVersion: 2.0.0
 id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
-  docChecksum: fd2ff30d1208d6f0d69d1b824ff2d22f
+  docChecksum: 6b31c76d061a30e3528498fe40789fdb
   docVersion: 1.0.0
   speakeasyVersion: 1.453.8
   generationVersion: 2.474.15
@@ -240,6 +240,30 @@ examples:
           application/json: {"status": 401, "error": "Unauthorized"}
         "404":
           application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
+    fido:
+      requestBody:
+        application/json: {"name": "Fido", "photoUrls": ["https://www.example.com/fido.jpg"], "status": "available"}
+      responses:
+        "200":
+          application/json: {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>", "<value>"]}
+        "400":
+          application/json: {"status": 400, "error": "Bad request"}
+        "401":
+          application/json: {"status": 401, "error": "Unauthorized"}
+        "404":
+          application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
+    rover:
+      requestBody:
+        application/json: {"name": "Rover", "photoUrls": ["https://www.example.com/rover1.jpg", "https://www.example.com/rover2.jpg"], "status": "pending"}
+      responses:
+        "200":
+          application/json: {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>"]}
+        "400":
+          application/json: {"status": 400, "error": "Bad request"}
+        "401":
+          application/json: {"status": 401, "error": "Unauthorized"}
+        "404":
+          application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
   addPet:
     speakeasy-default-add-pet:
       requestBody:
@@ -247,6 +271,18 @@ examples:
       responses:
         "200":
           application/json: {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>"]}
+    fido:
+      requestBody:
+        application/json: {"name": "Fido", "photoUrls": ["https://www.example.com/fido.jpg"], "status": "available"}
+      responses:
+        "200":
+          application/json: {"id": 1, "name": "Fido", "photoUrls": ["https://www.example.com/fido.jpg"], "status": "available"}
+    rover:
+      requestBody:
+        application/json: {"name": "Rover", "photoUrls": ["https://www.example.com/rover1.jpg", "https://www.example.com/rover2.jpg"], "status": "pending"}
+      responses:
+        "200":
+          application/json: {"id": 2, "name": "Rover", "photoUrls": ["https://www.example.com/rover1.jpg", "https://www.example.com/rover2.jpg"], "status": "pending"}
   findPetsByStatus:
     speakeasy-default-find-pets-by-status:
       responses:
@@ -416,8 +452,6 @@ examples:
         "404":
           application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
 generatedTests:
-  updatePet: "2024-12-10T08:16:54-05:00"
-  addPet: "2024-12-10T08:16:54-05:00"
   findPetsByStatus: "2024-12-10T08:16:54-05:00"
   findPetsByTags: "2024-12-10T08:16:54-05:00"
   getPetById: "2024-12-10T08:16:54-05:00"
@@ -433,3 +467,5 @@ generatedTests:
   getUserByName: "2024-12-10T08:16:54-05:00"
   updateUser: "2024-12-10T08:16:54-05:00"
   deleteUser: "2024-12-10T08:16:54-05:00"
+  updatePet: "2024-12-10T08:30:37-05:00"
+  addPet: "2024-12-10T08:30:37-05:00"

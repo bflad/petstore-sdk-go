@@ -87,6 +87,24 @@ paths:
           application/json:
             schema:
               "$ref": "#/components/schemas/Pet"
+            examples:
+              fido:
+                summary: First example
+                description: First example for test generation
+                value:
+                  name: Fido
+                  photoUrls:
+                    - https://www.example.com/fido.jpg
+                  status: available
+              rover:
+                summary: Second example
+                description: Second example for test generation
+                value:
+                  name: Rover
+                  photoUrls:
+                    - https://www.example.com/rover1.jpg
+                    - https://www.example.com/rover2.jpg
+                  status: pending
         required: true
       responses:
         '200':
@@ -95,6 +113,26 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Pet"
+              examples:
+                fido:
+                  summary: First example
+                  description: First example for test generation
+                  value:
+                    id: 1
+                    name: Fido
+                    photoUrls:
+                      - https://www.example.com/fido.jpg
+                    status: available
+                rover:
+                  summary: Second example
+                  description: Second example for test generation
+                  value:
+                    id: 2
+                    name: Rover
+                    photoUrls:
+                      - https://www.example.com/rover1.jpg
+                      - https://www.example.com/rover2.jpg
+                    status: pending
         '405':
           description: Invalid input
 
