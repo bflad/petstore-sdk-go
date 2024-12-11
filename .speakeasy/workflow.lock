@@ -1,20 +1,21 @@
-speakeasyVersion: 1.453.8
+speakeasyVersion: 1.453.10
 sources:
     sample-source:
         sourceNamespace: sample-source
-        sourceRevisionDigest: sha256:4da2ce8689c715fccf5f821714362785b2c696e425e720d9de1fe9a024b6d7ec
+        sourceRevisionDigest: sha256:67e30179e3673abac79e284ae9ad19e9dbf0dbb685395d49b8f14a95637a9bcd
         sourceBlobDigest: sha256:33ebffb37cb1baa3fabbd1269d5949ef498fb6445c9ceaa739a0e73776cd7b03
         tags:
             - latest
+            - speakeasy-sdk-regen-1732730746
             - 1.0.0
 targets:
     petstore-sdk:
         source: sample-source
         sourceNamespace: sample-source
-        sourceRevisionDigest: sha256:4da2ce8689c715fccf5f821714362785b2c696e425e720d9de1fe9a024b6d7ec
+        sourceRevisionDigest: sha256:67e30179e3673abac79e284ae9ad19e9dbf0dbb685395d49b8f14a95637a9bcd
         sourceBlobDigest: sha256:33ebffb37cb1baa3fabbd1269d5949ef498fb6445c9ceaa739a0e73776cd7b03
         codeSamplesNamespace: sample-source-go-code-samples
-        codeSamplesRevisionDigest: sha256:699ab28c2e855576a1ec7dbfab717278e067e04f28f48999b15b115cf1303a8c
+        codeSamplesRevisionDigest: sha256:aac6183f753f8ce31048f6524e2b8cc74f569485fee3f714a819ba70bf02fa7f
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
