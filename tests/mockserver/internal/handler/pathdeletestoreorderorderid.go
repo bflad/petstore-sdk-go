@@ -3,28 +3,33 @@
 package handler
 
 import (
+	"fmt"
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/components"
 	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
+	"mockserver/internal/tracking"
 	"net/http"
 )
 
-func pathDeleteStoreOrderOrderID(dir *logging.HTTPFileDirectory) http.HandlerFunc {
+func pathDeleteStoreOrderOrderID(dir *logging.HTTPFileDirectory, rt *tracking.RequestTracker) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		test := req.Header.Get("x-speakeasy-test-name")
+		instanceID := req.Header.Get("x-speakeasy-test-instance-id")
 
-		switch test {
-		case "deleteOrder":
-			dir.HandlerFunc("deleteOrder", testDeleteOrderDeleteOrder)(w, req)
+		count := rt.GetRequestCount(test, instanceID)
+
+		switch fmt.Sprintf("%s[%d]", test, count) {
+		case "deleteOrder[0]":
+			dir.HandlerFunc("deleteOrder", testDeleteOrderDeleteOrder0)(w, req)
 		default:
 			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
 		}
 	}
 }
 
-func testDeleteOrderDeleteOrder(w http.ResponseWriter, req *http.Request) {
+func testDeleteOrderDeleteOrder0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityHeader(req, "api_key", false); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
