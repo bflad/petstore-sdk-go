@@ -3,15 +3,17 @@ id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
   docChecksum: 6b31c76d061a30e3528498fe40789fdb
   docVersion: 1.0.0
-  speakeasyVersion: 1.453.8
-  generationVersion: 2.474.15
-  releaseVersion: 0.3.3
-  configChecksum: d6b2a7fe901f93f02573d4b5da07be6d
+  speakeasyVersion: 1.456.1
+  generationVersion: 2.481.0
+  releaseVersion: 0.4.0
+  configChecksum: 49f1da92e5d72c34a729775ee9d9456a
+  repoURL: https://github.com/bflad/petstore-sdk-go.git
+  installationURL: https://github.com/bflad/petstore-sdk-go
 features:
   go:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.6
-    core: 3.5.18
+    core: 3.6.2
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     envVarSecurityUsage: 0.3.2
@@ -25,7 +27,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.83.1
     sdkHooks: 0.1.0
-    tests: 0.7.1
+    tests: 0.8.1
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -215,6 +217,7 @@ generatedFiles:
   - tests/mockserver/internal/server/templates/log/index.html.tmpl
   - tests/mockserver/internal/server/templates/log/operation.html.tmpl
   - tests/mockserver/internal/server/templates/log/style.css.tmpl
+  - tests/mockserver/internal/tracking/requesttracker.go
   - tests/mockserver/main.go
   - tests/pet_test.go
   - tests/store_test.go
@@ -342,6 +345,9 @@ examples:
         query: {}
       requestBody:
         application/octet-stream: "0x89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489000000017352474200aece1ce90000000d49444154185763f8ff9fe13f0007fd02fe895163f40000000049454e44ae426082"
+      responses:
+        "200":
+          application/json: {}
   getInventory:
     speakeasy-default-get-inventory:
       responses:
