@@ -4,30 +4,30 @@ package handler
 
 import (
 	"context"
-	"net/http"
-
 	"mockserver/internal/logging"
+	"mockserver/internal/tracking"
+	"net/http"
 )
 
 // GeneratedHandlers returns all generated handlers.
-func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory) []*GeneratedHandler {
+func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *tracking.RequestTracker) []*GeneratedHandler {
 	return []*GeneratedHandler{
-		NewGeneratedHandler(ctx, http.MethodDelete, "/pet/{petId}", pathDeletePetPetID(dir)),
-		NewGeneratedHandler(ctx, http.MethodDelete, "/store/order/{orderId}", pathDeleteStoreOrderOrderID(dir)),
-		NewGeneratedHandler(ctx, http.MethodDelete, "/user/{username}", pathDeleteUserUsername(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/pet/findByStatus", pathGetPetFindByStatus(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/pet/findByTags", pathGetPetFindByTags(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/pet/{petId}", pathGetPetPetID(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/store/inventory", pathGetStoreInventory(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/store/order/{orderId}", pathGetStoreOrderOrderID(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/user/login", pathGetUserLogin(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/user/logout", pathGetUserLogout(dir)),
-		NewGeneratedHandler(ctx, http.MethodGet, "/user/{username}", pathGetUserUsername(dir)),
-		NewGeneratedHandler(ctx, http.MethodPost, "/pet", pathPostPet(dir)),
-		NewGeneratedHandler(ctx, http.MethodPost, "/store/order", pathPostStoreOrder(dir)),
-		NewGeneratedHandler(ctx, http.MethodPost, "/user", pathPostUser(dir)),
-		NewGeneratedHandler(ctx, http.MethodPost, "/user/createWithList", pathPostUserCreateWithList(dir)),
-		NewGeneratedHandler(ctx, http.MethodPut, "/pet", pathPutPet(dir)),
-		NewGeneratedHandler(ctx, http.MethodPut, "/user/{username}", pathPutUserUsername(dir)),
+		NewGeneratedHandler(ctx, http.MethodDelete, "/pet/{petId}", pathDeletePetPetID(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodDelete, "/store/order/{orderId}", pathDeleteStoreOrderOrderID(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodDelete, "/user/{username}", pathDeleteUserUsername(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/pet/findByStatus", pathGetPetFindByStatus(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/pet/findByTags", pathGetPetFindByTags(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/pet/{petId}", pathGetPetPetID(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/store/inventory", pathGetStoreInventory(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/store/order/{orderId}", pathGetStoreOrderOrderID(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/user/login", pathGetUserLogin(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/user/logout", pathGetUserLogout(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/user/{username}", pathGetUserUsername(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/pet", pathPostPet(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/store/order", pathPostStoreOrder(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/user", pathPostUser(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/user/createWithList", pathPostUserCreateWithList(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPut, "/pet", pathPutPet(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPut, "/user/{username}", pathPutUserUsername(dir, rt)),
 	}
 }
