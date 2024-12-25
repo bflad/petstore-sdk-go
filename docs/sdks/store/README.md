@@ -25,17 +25,18 @@ Returns a map of status codes to quantities
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Store.GetInventory(ctx)
     if err != nil {
         log.Fatal(err)
@@ -75,18 +76,19 @@ Place a new order in the store
 package main
 
 import(
+	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
 	"github.com/bflad/petstore-sdk/models/components"
-	"context"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Store.PlaceOrder(ctx, &components.Order{
         ID: petstoresdk.Int64(10),
         PetID: petstoresdk.Int64(198772),
@@ -132,17 +134,18 @@ For valid response try integer IDs with value <= 5 or > 10. Other values will ge
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Store.GetOrderByID(ctx, 614993)
     if err != nil {
         log.Fatal(err)
@@ -184,17 +187,18 @@ For valid response try integer IDs with value < 1000. Anything above 1000 or non
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Store.DeleteOrder(ctx, 127902)
     if err != nil {
         log.Fatal(err)
