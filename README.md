@@ -73,11 +73,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -157,11 +158,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -207,6 +209,8 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithRetryConfig(
 			retry.Config{
@@ -222,7 +226,6 @@ func main() {
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -277,11 +280,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -353,12 +357,13 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerIndex(1),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -395,12 +400,13 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL("http://localhost:18080"),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",
@@ -476,11 +482,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",

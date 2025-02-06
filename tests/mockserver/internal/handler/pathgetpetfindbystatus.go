@@ -3,37 +3,46 @@
 package handler
 
 import (
+	"fmt"
+	"log"
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/components"
 	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
+	"mockserver/internal/tracking"
 	"net/http"
 )
 
-func pathGetPetFindByStatus(dir *logging.HTTPFileDirectory) http.HandlerFunc {
+func pathGetPetFindByStatus(dir *logging.HTTPFileDirectory, rt *tracking.RequestTracker) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		test := req.Header.Get("x-speakeasy-test-name")
+		instanceID := req.Header.Get("x-speakeasy-test-instance-id")
 
-		switch test {
-		case "findPetsByStatus":
-			dir.HandlerFunc("findPetsByStatus", testFindPetsByStatusFindPetsByStatus)(w, req)
+		count := rt.GetRequestCount(test, instanceID)
+
+		switch fmt.Sprintf("%s[%d]", test, count) {
+		case "findPetsByStatus[0]":
+			dir.HandlerFunc("findPetsByStatus", testFindPetsByStatusFindPetsByStatus0)(w, req)
 		default:
 			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
 		}
 	}
 }
 
-func testFindPetsByStatusFindPetsByStatus(w http.ResponseWriter, req *http.Request) {
+func testFindPetsByStatusFindPetsByStatus0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityHeader(req, "api_key", false); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
 	}
 	if err := assert.AcceptHeader(req, []string{"application/json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -45,9 +54,7 @@ func testFindPetsByStatusFindPetsByStatus(w http.ResponseWriter, req *http.Reque
 				ID:   types.Int64(1),
 				Name: types.String("Dogs"),
 			},
-			PhotoUrls: []string{
-				"<value>",
-			},
+			PhotoUrls: []string{},
 		},
 		components.Pet{
 			ID:   types.Int64(10),
@@ -67,9 +74,7 @@ func testFindPetsByStatusFindPetsByStatus(w http.ResponseWriter, req *http.Reque
 				ID:   types.Int64(1),
 				Name: types.String("Dogs"),
 			},
-			PhotoUrls: []string{
-				"<value>",
-			},
+			PhotoUrls: []string{},
 		},
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)

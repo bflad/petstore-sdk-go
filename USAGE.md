@@ -10,11 +10,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
 		ID:   petstoresdk.Int64(10),
 		Name: "doggie",

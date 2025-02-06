@@ -25,18 +25,19 @@ This can only be done by the logged in user.
 package main
 
 import(
+	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
 	"github.com/bflad/petstore-sdk/models/components"
-	"context"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.User.CreateUser(ctx, &components.User{
         ID: petstoresdk.Int64(10),
         Username: petstoresdk.String("theUser"),
@@ -84,18 +85,19 @@ Creates list of users with given input array
 package main
 
 import(
+	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
 	"github.com/bflad/petstore-sdk/models/components"
-	"context"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.User.CreateUsersWithListInput(ctx, []components.User{
         components.User{
             ID: petstoresdk.Int64(10),
@@ -145,17 +147,18 @@ Logs user into the system
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.User.LoginUser(ctx, nil, nil)
     if err != nil {
         log.Fatal(err)
@@ -198,17 +201,18 @@ Logs out current logged in user session
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.User.LogoutUser(ctx)
     if err != nil {
         log.Fatal(err)
@@ -246,17 +250,18 @@ Get user by user name
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.User.GetUserByName(ctx, "Zachery_Lubowitz15")
     if err != nil {
         log.Fatal(err)
@@ -298,18 +303,19 @@ This can only be done by the logged in user.
 package main
 
 import(
+	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
 	"github.com/bflad/petstore-sdk/models/components"
-	"context"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.User.UpdateUser(ctx, "Dandre_Hand41", &components.User{
         ID: petstoresdk.Int64(10),
         Username: petstoresdk.String("theUser"),
@@ -358,17 +364,18 @@ This can only be done by the logged in user.
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.User.DeleteUser(ctx, "Demetris_Schmitt")
     if err != nil {
         log.Fatal(err)

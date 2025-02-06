@@ -8,8 +8,12 @@ import (
 	"fmt"
 	"log/slog"
 	"mockserver/internal/logging"
+	"mockserver/internal/tracking"
 	"net/http"
+	"strings"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 const (
@@ -29,19 +33,24 @@ type Server struct {
 	logger *slog.Logger
 
 	// Underlying mux implementation.
-	mux *http.ServeMux
+	// Based on gorilla mux as the native mux suffered from issues with ambiguous paths and different http methods
+	// eg - panic: pattern "HEAD /v8/artifacts/{hash}" (registered at /usr/src/app/internal/server/server.go:104) conflicts with pattern "GET /v8/artifacts/status" (registered at /usr/src/app/internal/server/server.go:104): HEAD /v8/artifacts/{hash} matches fewer methods than GET /v8/artifacts/status, but has a more general path pattern
+	mux *mux.Router
 
 	// Underlying server implementation.
 	server *http.Server
+
+	requestTracker *tracking.RequestTracker
 }
 
 // NewServer creates a new Server instance.
 func NewServer(ctx context.Context, opts ...ServerOption) (*Server, error) {
 	// Initialize with defaults.
 	result := &Server{
-		address: DefaultAddress,
-		logger:  slog.Default(),
-		mux:     http.NewServeMux(),
+		address:        DefaultAddress,
+		logger:         slog.Default(),
+		mux:            mux.NewRouter(),
+		requestTracker: tracking.New(),
 	}
 
 	// Customize based on ServerOption.
@@ -84,20 +93,14 @@ func (s *Server) Address() string {
 	return "http://localhost" + s.address
 }
 
-// RegisterHandler adds a new HTTP handler for the given pattern.
-//
-// Valid patterns are defined by [http.ServeMux].
-func (s *Server) RegisterHandler(ctx context.Context, pattern string, handler http.Handler) {
-	s.logger.DebugContext(ctx, "registering handler for pattern "+pattern)
-	s.mux.Handle(pattern, handler)
-}
+// RegisterHandlerFunc adds a new HTTP handler function for the given methods and path.
+func (s *Server) RegisterHandlerFunc(ctx context.Context, methods []string, path string, handlerFunc http.HandlerFunc) {
+	s.logger.DebugContext(ctx, fmt.Sprintf("registering handler for %s %s", strings.Join(methods, ", "), path))
 
-// RegisterHandler adds a new HTTP handler function for the given pattern.
-//
-// Valid patterns are defined by [http.ServeMux].
-func (s *Server) RegisterHandlerFunc(ctx context.Context, pattern string, handlerFunc http.HandlerFunc) {
-	s.logger.DebugContext(ctx, "registering handler for pattern "+pattern)
-	s.mux.HandleFunc(pattern, handlerFunc)
+	r := s.mux.HandleFunc(path, handlerFunc)
+	if len(methods) > 0 {
+		r.Methods(methods...)
+	}
 }
 
 // Serve starts the server.

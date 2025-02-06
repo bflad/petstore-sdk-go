@@ -13,13 +13,14 @@ import (
 )
 
 func TestUser_CreateUser(t *testing.T) {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
 		petstoresdk.WithClient(createTestHTTPClient("createUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.User.CreateUser(ctx, &components.User{
 		ID:         petstoresdk.Int64(10),
 		Username:   petstoresdk.String("theUser"),
@@ -43,28 +44,19 @@ func TestUser_CreateUser(t *testing.T) {
 		Phone:      petstoresdk.String("12345"),
 		UserStatus: petstoresdk.Int(1),
 	}, res.User)
+
 }
 
 func TestUser_CreateUsersWithListInput(t *testing.T) {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
 		petstoresdk.WithClient(createTestHTTPClient("createUsersWithListInput")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
-	res, err := s.User.CreateUsersWithListInput(ctx, []components.User{
-		components.User{
-			ID:         petstoresdk.Int64(10),
-			Username:   petstoresdk.String("theUser"),
-			FirstName:  petstoresdk.String("John"),
-			LastName:   petstoresdk.String("James"),
-			Email:      petstoresdk.String("john@email.com"),
-			Password:   petstoresdk.String("12345"),
-			Phone:      petstoresdk.String("12345"),
-			UserStatus: petstoresdk.Int(1),
-		},
-	})
+	res, err := s.User.CreateUsersWithListInput(ctx, []components.User{})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.User)
@@ -78,44 +70,50 @@ func TestUser_CreateUsersWithListInput(t *testing.T) {
 		Phone:      petstoresdk.String("12345"),
 		UserStatus: petstoresdk.Int(1),
 	}, res.User)
+
 }
 
 func TestUser_LoginUser(t *testing.T) {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
 		petstoresdk.WithClient(createTestHTTPClient("loginUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.User.LoginUser(ctx, nil, nil)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.String)
 	assert.Equal(t, petstoresdk.String("<value>"), res.String)
+
 }
 
 func TestUser_LogoutUser(t *testing.T) {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
 		petstoresdk.WithClient(createTestHTTPClient("logoutUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.User.LogoutUser(ctx)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+
 }
 
 func TestUser_GetUserByName(t *testing.T) {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
 		petstoresdk.WithClient(createTestHTTPClient("getUserByName")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.User.GetUserByName(ctx, "Zachery_Lubowitz15")
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
@@ -130,16 +128,18 @@ func TestUser_GetUserByName(t *testing.T) {
 		Phone:      petstoresdk.String("12345"),
 		UserStatus: petstoresdk.Int(1),
 	}, res.User)
+
 }
 
 func TestUser_UpdateUser(t *testing.T) {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
 		petstoresdk.WithClient(createTestHTTPClient("updateUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.User.UpdateUser(ctx, "Dandre_Hand41", &components.User{
 		ID:         petstoresdk.Int64(10),
 		Username:   petstoresdk.String("theUser"),
@@ -152,16 +152,18 @@ func TestUser_UpdateUser(t *testing.T) {
 	})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+
 }
 
 func TestUser_DeleteUser(t *testing.T) {
+	ctx := context.Background()
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
 		petstoresdk.WithClient(createTestHTTPClient("deleteUser")),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.User.DeleteUser(ctx, "Demetris_Schmitt")
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
@@ -176,4 +178,5 @@ func TestUser_DeleteUser(t *testing.T) {
 		Phone:      petstoresdk.String("12345"),
 		UserStatus: petstoresdk.Int(1),
 	}, res.User)
+
 }

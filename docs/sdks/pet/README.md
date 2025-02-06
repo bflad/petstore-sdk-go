@@ -28,18 +28,19 @@ Update an existing pet by Id
 package main
 
 import(
+	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
 	"github.com/bflad/petstore-sdk/models/components"
-	"context"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Pet.UpdatePet(ctx, components.Pet{
         ID: petstoresdk.Int64(10),
         Name: "doggie",
@@ -92,18 +93,19 @@ Add a new pet to the store
 package main
 
 import(
+	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
 	"github.com/bflad/petstore-sdk/models/components"
-	"context"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Pet.AddPet(ctx, components.Pet{
         Name: "Fido",
         PhotoUrls: []string{
@@ -148,17 +150,18 @@ Multiple status values can be provided with comma separated strings
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Pet.FindPetsByStatus(ctx, nil)
     if err != nil {
         log.Fatal(err)
@@ -200,17 +203,18 @@ Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Pet.FindPetsByTags(ctx, nil)
     if err != nil {
         log.Fatal(err)
@@ -252,17 +256,18 @@ Returns a single pet
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Pet.GetPetByID(ctx, 504151)
     if err != nil {
         log.Fatal(err)
@@ -304,17 +309,18 @@ Deletes a pet
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Pet.DeletePet(ctx, 441876, nil)
     if err != nil {
         log.Fatal(err)
@@ -357,19 +363,19 @@ uploads an image
 package main
 
 import(
-	petstoresdk "github.com/bflad/petstore-sdk"
-	"bytes"
 	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+    
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Pet.UploadFile(ctx, 565380, nil, bytes.NewBuffer([]byte("0x89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489000000017352474200aece1ce90000000d49444154185763f8ff9fe13f0007fd02fe895163f40000000049454e44ae426082")))
+    res, err := s.Pet.UploadFile(ctx, 565380, nil, nil)
     if err != nil {
         log.Fatal(err)
     }

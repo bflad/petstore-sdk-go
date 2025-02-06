@@ -3,15 +3,15 @@ id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
   docChecksum: 6b31c76d061a30e3528498fe40789fdb
   docVersion: 1.0.0
-  speakeasyVersion: 1.453.8
-  generationVersion: 2.474.15
-  releaseVersion: 0.3.3
-  configChecksum: d6b2a7fe901f93f02573d4b5da07be6d
+  speakeasyVersion: 1.486.0
+  generationVersion: 2.505.0
+  releaseVersion: 0.4.0
+  configChecksum: 5637ea737744359074fa1b62f062d2e9
 features:
   go:
     additionalDependencies: 0.1.0
-    constsAndDefaults: 0.1.6
-    core: 3.5.18
+    constsAndDefaults: 0.1.7
+    core: 3.7.0
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     envVarSecurityUsage: 0.3.2
@@ -23,9 +23,9 @@ features:
     intellisenseMarkdownSupport: 0.1.0
     mockServer: 0.1.0
     responseFormat: 0.1.2
-    retries: 2.83.1
+    retries: 2.83.2
     sdkHooks: 0.1.0
-    tests: 0.7.1
+    tests: 0.10.5
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -61,7 +61,6 @@ generatedFiles:
   - /models/sdkerrors/apierrorinvalidinput.go
   - /models/sdkerrors/apierrornotfound.go
   - /models/sdkerrors/apierrorunauthorized.go
-  - CONTRIBUTING.md
   - USAGE.md
   - docs/models/components/apiresponse.md
   - docs/models/components/category.md
@@ -215,6 +214,7 @@ generatedFiles:
   - tests/mockserver/internal/server/templates/log/index.html.tmpl
   - tests/mockserver/internal/server/templates/log/operation.html.tmpl
   - tests/mockserver/internal/server/templates/log/style.css.tmpl
+  - tests/mockserver/internal/tracking/requesttracker.go
   - tests/mockserver/main.go
   - tests/pet_test.go
   - tests/store_test.go
@@ -240,37 +240,7 @@ examples:
           application/json: {"status": 401, "error": "Unauthorized"}
         "404":
           application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
-    fido:
-      requestBody:
-        application/json: {"name": "Fido", "photoUrls": ["https://www.example.com/fido.jpg"], "status": "available"}
-      responses:
-        "200":
-          application/json: {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>", "<value>"]}
-        "400":
-          application/json: {"status": 400, "error": "Bad request"}
-        "401":
-          application/json: {"status": 401, "error": "Unauthorized"}
-        "404":
-          application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
-    rover:
-      requestBody:
-        application/json: {"name": "Rover", "photoUrls": ["https://www.example.com/rover1.jpg", "https://www.example.com/rover2.jpg"], "status": "pending"}
-      responses:
-        "200":
-          application/json: {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>"]}
-        "400":
-          application/json: {"status": 400, "error": "Bad request"}
-        "401":
-          application/json: {"status": 401, "error": "Unauthorized"}
-        "404":
-          application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
   addPet:
-    speakeasy-default-add-pet:
-      requestBody:
-        application/json: {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>"]}
-      responses:
-        "200":
-          application/json: {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>"]}
     fido:
       requestBody:
         application/json: {"name": "Fido", "photoUrls": ["https://www.example.com/fido.jpg"], "status": "available"}
@@ -285,6 +255,9 @@ examples:
           application/json: {"id": 2, "name": "Rover", "photoUrls": ["https://www.example.com/rover1.jpg", "https://www.example.com/rover2.jpg"], "status": "pending"}
   findPetsByStatus:
     speakeasy-default-find-pets-by-status:
+      parameters:
+        query:
+          status: "available"
       responses:
         "200":
           application/json: [{"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": []}, {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": ["<value>"]}, {"id": 10, "name": "doggie", "category": {"id": 1, "name": "Dogs"}, "photoUrls": []}]
@@ -340,13 +313,14 @@ examples:
         path:
           petId: 565380
         query: {}
-      requestBody:
-        application/octet-stream: "0x89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489000000017352474200aece1ce90000000d49444154185763f8ff9fe13f0007fd02fe895163f40000000049454e44ae426082"
+      responses:
+        "200":
+          application/json: {}
   getInventory:
     speakeasy-default-get-inventory:
       responses:
         "200":
-          application/json: {"key": 373538}
+          application/json: {"key": 373538, "key1": 961069}
         "401":
           application/json: {"status": 401, "error": "Unauthorized"}
         "404":
@@ -400,7 +374,7 @@ examples:
   createUsersWithListInput:
     speakeasy-default-create-users-with-list-input:
       requestBody:
-        application/json: []
+        application/json: [{"id": 10, "username": "theUser", "firstName": "John", "lastName": "James", "email": "john@email.com", "password": "12345", "phone": "12345", "userStatus": 1}]
       responses:
         "200":
           application/json: {"id": 10, "username": "theUser", "firstName": "John", "lastName": "James", "email": "john@email.com", "password": "12345", "phone": "12345", "userStatus": 1}
@@ -451,6 +425,7 @@ examples:
           application/json: {"status": 401, "error": "Unauthorized"}
         "404":
           application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
+examplesVersion: 1.0.0
 generatedTests:
   findPetsByStatus: "2024-12-10T08:16:54-05:00"
   findPetsByTags: "2024-12-10T08:16:54-05:00"

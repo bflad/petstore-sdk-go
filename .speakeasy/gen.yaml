@@ -20,7 +20,7 @@ generation:
   tests:
     generateNewTests: true
 go:
-  version: 0.3.3
+  version: 0.4.0
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
   clientServerStatusCodesAsErrors: true
@@ -39,18 +39,4 @@ go:
   methodArguments: require-security-and-request
   outputModelSuffix: output
   packageName: github.com/bflad/petstore-sdk
-  responseFormat: envelope-http
-mockserver:
-  version: ""
-  clientServerStatusCodesAsErrors: true
-  imports:
-    option: openapi
-    paths:
-      callbacks: models/callbacks
-      errors: models/sdkerrors
-      operations: models/operations
-      shared: models/components
-      webhooks: models/webhooks
-  inputModelSuffix: input
-  outputModelSuffix: output
   responseFormat: envelope-http
