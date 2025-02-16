@@ -32,13 +32,6 @@ func newPet(sdkConfig sdkConfiguration) *Pet {
 // UpdatePet - Update an existing pet
 // Update an existing pet by Id
 func (s *Pet) UpdatePet(ctx context.Context, request components.Pet, opts ...operations.Option) (*operations.UpdatePetResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "updatePet",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -62,6 +55,13 @@ func (s *Pet) UpdatePet(ctx context.Context, request components.Pet, opts ...ope
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "updatePet",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -304,13 +304,6 @@ func (s *Pet) UpdatePet(ctx context.Context, request components.Pet, opts ...ope
 // AddPet - Add a new pet to the store
 // Add a new pet to the store
 func (s *Pet) AddPet(ctx context.Context, request components.Pet, opts ...operations.Option) (*operations.AddPetResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "addPet",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -334,6 +327,13 @@ func (s *Pet) AddPet(ctx context.Context, request components.Pet, opts ...operat
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "addPet",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -515,13 +515,6 @@ func (s *Pet) AddPet(ctx context.Context, request components.Pet, opts ...operat
 // FindPetsByStatus - Finds Pets by status
 // Multiple status values can be provided with comma separated strings
 func (s *Pet) FindPetsByStatus(ctx context.Context, status *operations.Status, opts ...operations.Option) (*operations.FindPetsByStatusResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "findPetsByStatus",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.FindPetsByStatusRequest{
 		Status: status,
 	}
@@ -547,6 +540,14 @@ func (s *Pet) FindPetsByStatus(ctx context.Context, status *operations.Status, o
 	opURL, err := url.JoinPath(baseURL, "/pet/findByStatus")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "findPetsByStatus",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -787,13 +788,6 @@ func (s *Pet) FindPetsByStatus(ctx context.Context, status *operations.Status, o
 // FindPetsByTags - Finds Pets by tags
 // Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
 func (s *Pet) FindPetsByTags(ctx context.Context, tags []string, opts ...operations.Option) (*operations.FindPetsByTagsResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "findPetsByTags",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.FindPetsByTagsRequest{
 		Tags: tags,
 	}
@@ -819,6 +813,14 @@ func (s *Pet) FindPetsByTags(ctx context.Context, tags []string, opts ...operati
 	opURL, err := url.JoinPath(baseURL, "/pet/findByTags")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "findPetsByTags",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1059,13 +1061,6 @@ func (s *Pet) FindPetsByTags(ctx context.Context, tags []string, opts ...operati
 // GetPetByID - Find pet by ID
 // Returns a single pet
 func (s *Pet) GetPetByID(ctx context.Context, petID int64, opts ...operations.Option) (*operations.GetPetByIDResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getPetById",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.GetPetByIDRequest{
 		PetID: petID,
 	}
@@ -1091,6 +1086,14 @@ func (s *Pet) GetPetByID(ctx context.Context, petID int64, opts ...operations.Op
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/pet/{petId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getPetById",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1326,13 +1329,6 @@ func (s *Pet) GetPetByID(ctx context.Context, petID int64, opts ...operations.Op
 
 // DeletePet - Deletes a pet
 func (s *Pet) DeletePet(ctx context.Context, petID int64, apiKey *string, opts ...operations.Option) (*operations.DeletePetResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "deletePet",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.DeletePetRequest{
 		APIKey: apiKey,
 		PetID:  petID,
@@ -1359,6 +1355,14 @@ func (s *Pet) DeletePet(ctx context.Context, petID int64, apiKey *string, opts .
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/pet/{petId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "deletePet",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1596,13 +1600,6 @@ func (s *Pet) DeletePet(ctx context.Context, petID int64, apiKey *string, opts .
 
 // UploadFile - uploads an image
 func (s *Pet) UploadFile(ctx context.Context, petID int64, additionalMetadata *string, requestBody *any, opts ...operations.Option) (*operations.UploadFileResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "uploadFile",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.UploadFileRequest{
 		PetID:              petID,
 		AdditionalMetadata: additionalMetadata,
@@ -1632,6 +1629,13 @@ func (s *Pet) UploadFile(ctx context.Context, petID int64, additionalMetadata *s
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "uploadFile",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "raw", `request:"mediaType=application/octet-stream"`)
 	if err != nil {
 		return nil, err
