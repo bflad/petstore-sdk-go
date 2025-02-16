@@ -30,13 +30,6 @@ func newUser(sdkConfig sdkConfiguration) *User {
 // CreateUser - Create user
 // This can only be done by the logged in user.
 func (s *User) CreateUser(ctx context.Context, request *components.User, opts ...operations.Option) (*operations.CreateUserResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "createUser",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -60,6 +53,13 @@ func (s *User) CreateUser(ctx context.Context, request *components.User, opts ..
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "createUser",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -239,13 +239,6 @@ func (s *User) CreateUser(ctx context.Context, request *components.User, opts ..
 // CreateUsersWithListInput - Creates list of users with given input array
 // Creates list of users with given input array
 func (s *User) CreateUsersWithListInput(ctx context.Context, request []components.User, opts ...operations.Option) (*operations.CreateUsersWithListInputResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "createUsersWithListInput",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -269,6 +262,13 @@ func (s *User) CreateUsersWithListInput(ctx context.Context, request []component
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "createUsersWithListInput",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -447,13 +447,6 @@ func (s *User) CreateUsersWithListInput(ctx context.Context, request []component
 
 // LoginUser - Logs user into the system
 func (s *User) LoginUser(ctx context.Context, username *string, password *string, opts ...operations.Option) (*operations.LoginUserResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "loginUser",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.LoginUserRequest{
 		Username: username,
 		Password: password,
@@ -480,6 +473,14 @@ func (s *User) LoginUser(ctx context.Context, username *string, password *string
 	opURL, err := url.JoinPath(baseURL, "/user/login")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "loginUser",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -721,13 +722,6 @@ func (s *User) LoginUser(ctx context.Context, username *string, password *string
 
 // LogoutUser - Logs out current logged in user session
 func (s *User) LogoutUser(ctx context.Context, opts ...operations.Option) (*operations.LogoutUserResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "logoutUser",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -749,6 +743,14 @@ func (s *User) LogoutUser(ctx context.Context, opts ...operations.Option) (*oper
 	opURL, err := url.JoinPath(baseURL, "/user/logout")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "logoutUser",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -901,13 +903,6 @@ func (s *User) LogoutUser(ctx context.Context, opts ...operations.Option) (*oper
 
 // GetUserByName - Get user by user name
 func (s *User) GetUserByName(ctx context.Context, username string, opts ...operations.Option) (*operations.GetUserByNameResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getUserByName",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.GetUserByNameRequest{
 		Username: username,
 	}
@@ -933,6 +928,14 @@ func (s *User) GetUserByName(ctx context.Context, username string, opts ...opera
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/user/{username}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getUserByName",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1169,13 +1172,6 @@ func (s *User) GetUserByName(ctx context.Context, username string, opts ...opera
 // UpdateUser - Update user
 // This can only be done by the logged in user.
 func (s *User) UpdateUser(ctx context.Context, username string, user *components.User, opts ...operations.Option) (*operations.UpdateUserResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "updateUser",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.UpdateUserRequest{
 		Username: username,
 		User:     user,
@@ -1204,6 +1200,13 @@ func (s *User) UpdateUser(ctx context.Context, username string, user *components
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "updateUser",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "User", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -1363,13 +1366,6 @@ func (s *User) UpdateUser(ctx context.Context, username string, user *components
 // DeleteUser - Delete user
 // This can only be done by the logged in user.
 func (s *User) DeleteUser(ctx context.Context, username string, opts ...operations.Option) (*operations.DeleteUserResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "deleteUser",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.DeleteUserRequest{
 		Username: username,
 	}
@@ -1395,6 +1391,14 @@ func (s *User) DeleteUser(ctx context.Context, username string, opts ...operatio
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/user/{username}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "deleteUser",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout

@@ -32,13 +32,6 @@ func newStore(sdkConfig sdkConfiguration) *Store {
 // GetInventory - Returns pet inventories by status
 // Returns a map of status codes to quantities
 func (s *Store) GetInventory(ctx context.Context, opts ...operations.Option) (*operations.GetInventoryResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getInventory",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -60,6 +53,14 @@ func (s *Store) GetInventory(ctx context.Context, opts ...operations.Option) (*o
 	opURL, err := url.JoinPath(baseURL, "/store/inventory")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getInventory",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -275,13 +276,6 @@ func (s *Store) GetInventory(ctx context.Context, opts ...operations.Option) (*o
 // PlaceOrder - Place an order for a pet
 // Place a new order in the store
 func (s *Store) PlaceOrder(ctx context.Context, request *components.Order, opts ...operations.Option) (*operations.PlaceOrderResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "placeOrder",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -305,6 +299,13 @@ func (s *Store) PlaceOrder(ctx context.Context, request *components.Order, opts 
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "placeOrder",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -528,13 +529,6 @@ func (s *Store) PlaceOrder(ctx context.Context, request *components.Order, opts 
 // GetOrderByID - Find purchase order by ID
 // For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
 func (s *Store) GetOrderByID(ctx context.Context, orderID int64, opts ...operations.Option) (*operations.GetOrderByIDResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getOrderById",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.GetOrderByIDRequest{
 		OrderID: orderID,
 	}
@@ -560,6 +554,14 @@ func (s *Store) GetOrderByID(ctx context.Context, orderID int64, opts ...operati
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/store/order/{orderId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getOrderById",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -796,13 +798,6 @@ func (s *Store) GetOrderByID(ctx context.Context, orderID int64, opts ...operati
 // DeleteOrder - Delete purchase order by ID
 // For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
 func (s *Store) DeleteOrder(ctx context.Context, orderID int64, opts ...operations.Option) (*operations.DeleteOrderResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "deleteOrder",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	request := operations.DeleteOrderRequest{
 		OrderID: orderID,
 	}
@@ -828,6 +823,14 @@ func (s *Store) DeleteOrder(ctx context.Context, orderID int64, opts ...operatio
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/store/order/{orderId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "deleteOrder",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout

@@ -3,20 +3,22 @@ id: ce3a0683-4f03-4e82-abd0-3e1359351ac2
 management:
   docChecksum: 6b31c76d061a30e3528498fe40789fdb
   docVersion: 1.0.0
-  speakeasyVersion: 1.486.0
-  generationVersion: 2.505.0
-  releaseVersion: 0.4.0
-  configChecksum: 5637ea737744359074fa1b62f062d2e9
+  speakeasyVersion: 1.493.0
+  generationVersion: 2.512.4
+  releaseVersion: 0.5.0
+  configChecksum: 1ebb3c4c81325fa568e0437bd7244638
+  repoURL: https://github.com/bflad/petstore-sdk-go.git
+  installationURL: https://github.com/bflad/petstore-sdk-go
 features:
   go:
     additionalDependencies: 0.1.0
-    constsAndDefaults: 0.1.7
+    constsAndDefaults: 0.1.9
     core: 3.7.0
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     envVarSecurityUsage: 0.3.2
     flattening: 2.81.1
-    globalSecurity: 2.82.10
+    globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
@@ -25,7 +27,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.83.2
     sdkHooks: 0.1.0
-    tests: 0.10.5
+    tests: 0.12.0
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
