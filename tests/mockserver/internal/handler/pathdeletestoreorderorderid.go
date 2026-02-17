@@ -25,7 +25,7 @@ func pathDeleteStoreOrderOrderID(dir *logging.HTTPFileDirectory, rt *tracking.Re
 		case "deleteOrder[0]":
 			dir.HandlerFunc("deleteOrder", testDeleteOrderDeleteOrder0)(w, req)
 		default:
-			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
+			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
@@ -46,7 +46,7 @@ func testDeleteOrderDeleteOrder0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Order{
+	var respBody *components.Order = &components.Order{
 		ID:       types.Int64(10),
 		PetID:    types.Int64(198772),
 		Quantity: types.Int(7),

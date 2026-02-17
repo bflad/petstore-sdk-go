@@ -11,11 +11,11 @@ type FindPetsByTagsRequest struct {
 	Tags []string `queryParam:"style=form,explode=true,name=tags"`
 }
 
-func (o *FindPetsByTagsRequest) GetTags() []string {
-	if o == nil {
+func (f *FindPetsByTagsRequest) GetTags() []string {
+	if f == nil {
 		return nil
 	}
-	return o.Tags
+	return f.Tags
 }
 
 type FindPetsByTagsResponse struct {
@@ -24,16 +24,16 @@ type FindPetsByTagsResponse struct {
 	Pets []components.Pet
 }
 
-func (o *FindPetsByTagsResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (f *FindPetsByTagsResponse) GetHTTPMeta() components.HTTPMetadata {
+	if f == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return f.HTTPMeta
 }
 
-func (o *FindPetsByTagsResponse) GetPets() []components.Pet {
-	if o == nil {
+func (f *FindPetsByTagsResponse) GetPets() []components.Pet {
+	if f == nil {
 		return nil
 	}
-	return o.Pets
+	return f.Pets
 }

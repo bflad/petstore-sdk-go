@@ -7,16 +7,16 @@ type Tag struct {
 	Name *string `json:"name,omitempty"`
 }
 
-func (o *Tag) GetID() *int64 {
-	if o == nil {
+func (t *Tag) GetID() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.ID
+	return t.ID
 }
 
-func (o *Tag) GetName() *string {
-	if o == nil {
+func (t *Tag) GetName() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Name
+	return t.Name
 }

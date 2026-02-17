@@ -1,5 +1,4 @@
 # Pet
-(*Pet*)
 
 ## Overview
 
@@ -24,6 +23,7 @@ Update an existing pet by Id
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updatePet" method="put" path="/pet" -->
 ```go
 package main
 
@@ -36,21 +36,20 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
     res, err := s.Pet.UpdatePet(ctx, components.Pet{
-        ID: petstoresdk.Int64(10),
+        ID: petstoresdk.Pointer[int64](10),
         Name: "doggie",
         Category: &components.Category{
-            ID: petstoresdk.Int64(1),
-            Name: petstoresdk.String("Dogs"),
+            ID: petstoresdk.Pointer[int64](1),
+            Name: petstoresdk.Pointer("Dogs"),
         },
         PhotoUrls: []string{
-            "<value>",
-            "<value>",
+            "<value 1>",
         },
     })
     if err != nil {
@@ -87,8 +86,9 @@ func main() {
 
 Add a new pet to the store
 
-### Example Usage
+### Example Usage: fido
 
+<!-- UsageSnippet language="go" operationID="addPet" method="post" path="/pet" example="fido" -->
 ```go
 package main
 
@@ -101,7 +101,7 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
@@ -112,6 +112,42 @@ func main() {
             "https://www.example.com/fido.jpg",
         },
         Status: components.StatusAvailable.ToPointer(),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Pet != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: rover
+
+<!-- UsageSnippet language="go" operationID="addPet" method="post" path="/pet" example="rover" -->
+```go
+package main
+
+import(
+	"context"
+	petstoresdk "github.com/bflad/petstore-sdk"
+	"github.com/bflad/petstore-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := petstoresdk.New(
+        petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
+    )
+
+    res, err := s.Pet.AddPet(ctx, components.Pet{
+        Name: "Rover",
+        PhotoUrls: []string{
+            "https://www.example.com/rover1.jpg",
+            "https://www.example.com/rover2.jpg",
+        },
+        Status: components.StatusPending.ToPointer(),
     })
     if err != nil {
         log.Fatal(err)
@@ -146,23 +182,25 @@ Multiple status values can be provided with comma separated strings
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="findPetsByStatus" method="get" path="/pet/findByStatus" -->
 ```go
 package main
 
 import(
 	"context"
 	petstoresdk "github.com/bflad/petstore-sdk"
+	"github.com/bflad/petstore-sdk/models/operations"
 	"log"
 )
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.Pet.FindPetsByStatus(ctx, nil)
+    res, err := s.Pet.FindPetsByStatus(ctx, operations.StatusAvailable.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
@@ -199,6 +237,7 @@ Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="findPetsByTags" method="get" path="/pet/findByTags" -->
 ```go
 package main
 
@@ -210,7 +249,7 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
@@ -252,6 +291,7 @@ Returns a single pet
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getPetById" method="get" path="/pet/{petId}" -->
 ```go
 package main
 
@@ -263,12 +303,12 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.Pet.GetPetByID(ctx, 504151)
+    res, err := s.Pet.GetPetByID(ctx, 311674)
     if err != nil {
         log.Fatal(err)
     }
@@ -305,6 +345,7 @@ Deletes a pet
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deletePet" method="delete" path="/pet/{petId}" -->
 ```go
 package main
 
@@ -316,12 +357,12 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.Pet.DeletePet(ctx, 441876, nil)
+    res, err := s.Pet.DeletePet(ctx, 818965, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -359,6 +400,7 @@ uploads an image
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="uploadFile" method="post" path="/pet/{petId}/uploadImage" -->
 ```go
 package main
 
@@ -370,12 +412,12 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.Pet.UploadFile(ctx, 565380, nil, nil)
+    res, err := s.Pet.UploadFile(ctx, 150516, nil, nil)
     if err != nil {
         log.Fatal(err)
     }

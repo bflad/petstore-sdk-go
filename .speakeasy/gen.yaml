@@ -7,25 +7,41 @@ generation:
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
+    nameResolutionFeb2025: false
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
+    securityFeb2025: false
+    sharedErrorComponentsApr2025: false
+    sharedNestedComponentsJan2026: false
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
+  versioningStrategy: automatic
   mockServer:
     disabled: false
+  persistentEdits: {}
   tests:
+    generateTests: true
     generateNewTests: true
+    skipResponseBodyAssertions: false
 go:
-  version: 0.4.0
+  version: 0.5.0
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
+  baseErrorName: PetstoreSDKError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: SDKError
   flattenGlobalSecurity: true
+  forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: "false"
   imports:
     option: openapi
     paths:
@@ -34,9 +50,18 @@ go:
       operations: models/operations
       shared: models/components
       webhooks: models/webhooks
+  includeEmptyObjects: false
+  inferUnionDiscriminators: false
   inputModelSuffix: input
   maxMethodParams: 4
   methodArguments: require-security-and-request
+  modulePath: ""
+  multipartArrayFormat: legacy
+  nullableOptionalWrapper: false
   outputModelSuffix: output
   packageName: github.com/bflad/petstore-sdk
+  respectRequiredFields: false
+  respectTitlesForPrimitiveUnionMembers: false
   responseFormat: envelope-http
+  sdkPackageName: ""
+  unionStrategy: left-to-right

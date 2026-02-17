@@ -49,17 +49,17 @@ func (f FindPetsByStatusRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FindPetsByStatusRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *FindPetsByStatusRequest) GetStatus() *Status {
-	if o == nil {
+func (f *FindPetsByStatusRequest) GetStatus() *Status {
+	if f == nil {
 		return nil
 	}
-	return o.Status
+	return f.Status
 }
 
 type FindPetsByStatusResponse struct {
@@ -68,16 +68,16 @@ type FindPetsByStatusResponse struct {
 	Pets []components.Pet
 }
 
-func (o *FindPetsByStatusResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (f *FindPetsByStatusResponse) GetHTTPMeta() components.HTTPMetadata {
+	if f == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return f.HTTPMeta
 }
 
-func (o *FindPetsByStatusResponse) GetPets() []components.Pet {
-	if o == nil {
+func (f *FindPetsByStatusResponse) GetPets() []components.Pet {
+	if f == nil {
 		return nil
 	}
-	return o.Pets
+	return f.Pets
 }

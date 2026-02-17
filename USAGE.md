@@ -17,15 +17,14 @@ func main() {
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	})
 	if err != nil {

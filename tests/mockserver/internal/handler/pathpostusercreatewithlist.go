@@ -25,7 +25,7 @@ func pathPostUserCreateWithList(dir *logging.HTTPFileDirectory, rt *tracking.Req
 		case "createUsersWithListInput[0]":
 			dir.HandlerFunc("createUsersWithListInput", testCreateUsersWithListInputCreateUsersWithListInput0)(w, req)
 		default:
-			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
+			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
@@ -51,7 +51,7 @@ func testCreateUsersWithListInputCreateUsersWithListInput0(w http.ResponseWriter
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.User{
+	var respBody *components.User = &components.User{
 		ID:         types.Int64(10),
 		Username:   types.String("theUser"),
 		FirstName:  types.String("John"),

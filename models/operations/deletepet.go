@@ -12,18 +12,18 @@ type DeletePetRequest struct {
 	PetID int64 `pathParam:"style=simple,explode=false,name=petId"`
 }
 
-func (o *DeletePetRequest) GetAPIKey() *string {
-	if o == nil {
+func (d *DeletePetRequest) GetAPIKey() *string {
+	if d == nil {
 		return nil
 	}
-	return o.APIKey
+	return d.APIKey
 }
 
-func (o *DeletePetRequest) GetPetID() int64 {
-	if o == nil {
+func (d *DeletePetRequest) GetPetID() int64 {
+	if d == nil {
 		return 0
 	}
-	return o.PetID
+	return d.PetID
 }
 
 type DeletePetResponse struct {
@@ -32,16 +32,16 @@ type DeletePetResponse struct {
 	Pet *components.Pet
 }
 
-func (o *DeletePetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeletePetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeletePetResponse) GetPet() *components.Pet {
-	if o == nil {
+func (d *DeletePetResponse) GetPet() *components.Pet {
+	if d == nil {
 		return nil
 	}
-	return o.Pet
+	return d.Pet
 }

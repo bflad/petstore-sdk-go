@@ -14,58 +14,58 @@ type User struct {
 	UserStatus *int `json:"userStatus,omitempty"`
 }
 
-func (o *User) GetID() *int64 {
-	if o == nil {
+func (u *User) GetID() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *User) GetUsername() *string {
-	if o == nil {
+func (u *User) GetUsername() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Username
+	return u.Username
 }
 
-func (o *User) GetFirstName() *string {
-	if o == nil {
+func (u *User) GetFirstName() *string {
+	if u == nil {
 		return nil
 	}
-	return o.FirstName
+	return u.FirstName
 }
 
-func (o *User) GetLastName() *string {
-	if o == nil {
+func (u *User) GetLastName() *string {
+	if u == nil {
 		return nil
 	}
-	return o.LastName
+	return u.LastName
 }
 
-func (o *User) GetEmail() *string {
-	if o == nil {
+func (u *User) GetEmail() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Email
+	return u.Email
 }
 
-func (o *User) GetPassword() *string {
-	if o == nil {
+func (u *User) GetPassword() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Password
+	return u.Password
 }
 
-func (o *User) GetPhone() *string {
-	if o == nil {
+func (u *User) GetPhone() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Phone
+	return u.Phone
 }
 
-func (o *User) GetUserStatus() *int {
-	if o == nil {
+func (u *User) GetUserStatus() *int {
+	if u == nil {
 		return nil
 	}
-	return o.UserStatus
+	return u.UserStatus
 }

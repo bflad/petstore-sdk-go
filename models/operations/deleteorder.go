@@ -11,11 +11,11 @@ type DeleteOrderRequest struct {
 	OrderID int64 `pathParam:"style=simple,explode=false,name=orderId"`
 }
 
-func (o *DeleteOrderRequest) GetOrderID() int64 {
-	if o == nil {
+func (d *DeleteOrderRequest) GetOrderID() int64 {
+	if d == nil {
 		return 0
 	}
-	return o.OrderID
+	return d.OrderID
 }
 
 type DeleteOrderResponse struct {
@@ -24,16 +24,16 @@ type DeleteOrderResponse struct {
 	Order *components.Order
 }
 
-func (o *DeleteOrderResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteOrderResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteOrderResponse) GetOrder() *components.Order {
-	if o == nil {
+func (d *DeleteOrderResponse) GetOrder() *components.Order {
+	if d == nil {
 		return nil
 	}
-	return o.Order
+	return d.Order
 }

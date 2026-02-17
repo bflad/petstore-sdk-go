@@ -80,15 +80,14 @@ func main() {
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	})
 	if err != nil {
@@ -117,7 +116,6 @@ func main() {
 * [GetPetByID](docs/sdks/pet/README.md#getpetbyid) - Find pet by ID
 * [DeletePet](docs/sdks/pet/README.md#deletepet) - Deletes a pet
 * [UploadFile](docs/sdks/pet/README.md#uploadfile) - uploads an image
-
 
 ### [Store](docs/sdks/store/README.md)
 
@@ -165,15 +163,14 @@ func main() {
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	}, operations.WithRetries(
 		retry.Config{
@@ -227,15 +224,14 @@ func main() {
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	})
 	if err != nil {
@@ -287,15 +283,14 @@ func main() {
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	})
 	if err != nil {
@@ -336,13 +331,16 @@ func main() {
 
 You can override the default server globally using the `WithServerIndex(serverIndex int)` option when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
 
-| #   | Server                              | Variables                       | Default values |
-| --- | ----------------------------------- | ------------------------------- | -------------- |
-| 0   | `http://localhost:18080`            |                                 |                |
-| 1   | `https://{environment}.petstore.io` | `environment ServerEnvironment` | `"prod"`       |
+| #   | Server                              | Variables     | Description            |
+| --- | ----------------------------------- | ------------- | ---------------------- |
+| 0   | `http://localhost:18080`            |               | Mock API server.       |
+| 1   | `https://{environment}.petstore.io` | `environment` | A per-environment API. |
 
-If the selected server has variables, you may override their default values using their associated option(s):
- * `WithEnvironment(environment ServerEnvironment)`
+If the selected server has variables, you may override its default values using the associated option(s):
+
+| Variable      | Option                                           | Supported Values                           | Default  | Description                                                   |
+| ------------- | ------------------------------------------------ | ------------------------------------------ | -------- | ------------------------------------------------------------- |
+| `environment` | `WithEnvironment(environment ServerEnvironment)` | - `"prod"`<br/>- `"staging"`<br/>- `"dev"` | `"prod"` | The environment name. Defaults to the production environment. |
 
 #### Example
 
@@ -361,19 +359,19 @@ func main() {
 
 	s := petstoresdk.New(
 		petstoresdk.WithServerIndex(1),
+		petstoresdk.WithEnvironment("dev"),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	})
 	if err != nil {
@@ -403,20 +401,19 @@ func main() {
 	ctx := context.Background()
 
 	s := petstoresdk.New(
-		petstoresdk.WithServerURL("http://localhost:18080"),
+		petstoresdk.WithServerURL("https://prod.petstore.io"),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	})
 	if err != nil {
@@ -447,12 +444,13 @@ The built-in `net/http` client satisfies this interface and a default client bas
 import (
 	"net/http"
 	"time"
-	"github.com/myorg/your-go-sdk"
+
+	"github.com/bflad/petstore-sdk"
 )
 
 var (
 	httpClient = &http.Client{Timeout: 30 * time.Second}
-	sdkClient  = sdk.New(sdk.WithClient(httpClient))
+	sdkClient  = petstoresdk.New(petstoresdk.WithClient(httpClient))
 )
 ```
 
@@ -489,15 +487,14 @@ func main() {
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
-			"<value>",
-			"<value>",
+			"<value 1>",
 		},
 	})
 	if err != nil {

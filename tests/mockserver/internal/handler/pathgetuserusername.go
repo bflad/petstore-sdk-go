@@ -25,7 +25,7 @@ func pathGetUserUsername(dir *logging.HTTPFileDirectory, rt *tracking.RequestTra
 		case "getUserByName[0]":
 			dir.HandlerFunc("getUserByName", testGetUserByNameGetUserByName0)(w, req)
 		default:
-			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
+			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
@@ -46,7 +46,7 @@ func testGetUserByNameGetUserByName0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.User{
+	var respBody *components.User = &components.User{
 		ID:         types.Int64(10),
 		Username:   types.String("theUser"),
 		FirstName:  types.String("John"),

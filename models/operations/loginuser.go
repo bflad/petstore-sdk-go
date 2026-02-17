@@ -13,18 +13,18 @@ type LoginUserRequest struct {
 	Password *string `queryParam:"style=form,explode=true,name=password"`
 }
 
-func (o *LoginUserRequest) GetUsername() *string {
-	if o == nil {
+func (l *LoginUserRequest) GetUsername() *string {
+	if l == nil {
 		return nil
 	}
-	return o.Username
+	return l.Username
 }
 
-func (o *LoginUserRequest) GetPassword() *string {
-	if o == nil {
+func (l *LoginUserRequest) GetPassword() *string {
+	if l == nil {
 		return nil
 	}
-	return o.Password
+	return l.Password
 }
 
 type LoginUserResponse struct {
@@ -34,23 +34,23 @@ type LoginUserResponse struct {
 	Headers map[string][]string
 }
 
-func (o *LoginUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (l *LoginUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if l == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return l.HTTPMeta
 }
 
-func (o *LoginUserResponse) GetString() *string {
-	if o == nil {
+func (l *LoginUserResponse) GetString() *string {
+	if l == nil {
 		return nil
 	}
-	return o.String
+	return l.String
 }
 
-func (o *LoginUserResponse) GetHeaders() map[string][]string {
-	if o == nil {
+func (l *LoginUserResponse) GetHeaders() map[string][]string {
+	if l == nil {
 		return map[string][]string{}
 	}
-	return o.Headers
+	return l.Headers
 }

@@ -29,7 +29,7 @@ func pathPostPet(dir *logging.HTTPFileDirectory, rt *tracking.RequestTracker) ht
 		case "addPet[0]":
 			dir.HandlerFunc("addPet", testAddPetAddPet0)(w, req)
 		default:
-			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
+			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
@@ -55,13 +55,13 @@ func testAddPetAddPetFido0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Pet{
+	var respBody *components.Pet = &components.Pet{
 		ID:   types.Int64(1),
 		Name: "Fido",
 		PhotoUrls: []string{
 			"https://www.example.com/fido.jpg",
 		},
-		Status: components.StatusAvailable.ToPointer(),
+		Status: components.PetStatusAvailable.ToPointer(),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
@@ -99,14 +99,14 @@ func testAddPetAddPetRover0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Pet{
+	var respBody *components.Pet = &components.Pet{
 		ID:   types.Int64(2),
 		Name: "Rover",
 		PhotoUrls: []string{
 			"https://www.example.com/rover1.jpg",
 			"https://www.example.com/rover2.jpg",
 		},
-		Status: components.StatusPending.ToPointer(),
+		Status: components.PetStatusPending.ToPointer(),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
@@ -144,7 +144,7 @@ func testAddPetAddPet0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Pet{
+	var respBody *components.Pet = &components.Pet{
 		ID:   types.Int64(10),
 		Name: "doggie",
 		Category: &components.Category{

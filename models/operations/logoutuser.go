@@ -10,9 +10,9 @@ type LogoutUserResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 }
 
-func (o *LogoutUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (l *LogoutUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if l == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return l.HTTPMeta
 }

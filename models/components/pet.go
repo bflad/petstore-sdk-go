@@ -47,44 +47,44 @@ type Pet struct {
 	Status *Status `json:"status,omitempty"`
 }
 
-func (o *Pet) GetID() *int64 {
-	if o == nil {
+func (p *Pet) GetID() *int64 {
+	if p == nil {
 		return nil
 	}
-	return o.ID
+	return p.ID
 }
 
-func (o *Pet) GetName() string {
-	if o == nil {
+func (p *Pet) GetName() string {
+	if p == nil {
 		return ""
 	}
-	return o.Name
+	return p.Name
 }
 
-func (o *Pet) GetCategory() *Category {
-	if o == nil {
+func (p *Pet) GetCategory() *Category {
+	if p == nil {
 		return nil
 	}
-	return o.Category
+	return p.Category
 }
 
-func (o *Pet) GetPhotoUrls() []string {
-	if o == nil {
+func (p *Pet) GetPhotoUrls() []string {
+	if p == nil {
 		return []string{}
 	}
-	return o.PhotoUrls
+	return p.PhotoUrls
 }
 
-func (o *Pet) GetTags() []Tag {
-	if o == nil {
+func (p *Pet) GetTags() []Tag {
+	if p == nil {
 		return nil
 	}
-	return o.Tags
+	return p.Tags
 }
 
-func (o *Pet) GetStatus() *Status {
-	if o == nil {
+func (p *Pet) GetStatus() *Status {
+	if p == nil {
 		return nil
 	}
-	return o.Status
+	return p.Status
 }

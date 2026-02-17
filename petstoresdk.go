@@ -2,10 +2,13 @@
 
 package petstoresdk
 
+// Generated from OpenAPI doc version 1.0.0 and generator version 2.824.1
+
 import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/bflad/petstore-sdk/internal/config"
 	"github.com/bflad/petstore-sdk/internal/hooks"
 	"github.com/bflad/petstore-sdk/internal/utils"
 	"github.com/bflad/petstore-sdk/models/components"
@@ -22,7 +25,7 @@ var ServerList = []string{
 	"https://{environment}.petstore.io",
 }
 
-// HTTPClient provides an interface for suplying the SDK with a custom HTTP client
+// HTTPClient provides an interface for supplying the SDK with a custom HTTP client
 type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
@@ -48,30 +51,6 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-type sdkConfiguration struct {
-	Client            HTTPClient
-	Security          func(context.Context) (interface{}, error)
-	ServerURL         string
-	ServerIndex       int
-	ServerDefaults    []map[string]string
-	Language          string
-	OpenAPIDocVersion string
-	SDKVersion        string
-	GenVersion        string
-	UserAgent         string
-	RetryConfig       *retry.Config
-	Hooks             *hooks.Hooks
-	Timeout           *time.Duration
-}
-
-func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
-	if c.ServerURL != "" {
-		return c.ServerURL, nil
-	}
-
-	return ServerList[c.ServerIndex], c.ServerDefaults[c.ServerIndex]
-}
-
 // PetstoreSDK - Petstore - OpenAPI 3.1: This is a sample Pet Store Server based on the OpenAPI 3.1 specification.
 //
 // Some useful links:
@@ -81,6 +60,7 @@ func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
 //
 // http://swagger.io - Find out more about Swagger
 type PetstoreSDK struct {
+	SDKVersion string
 	// Everything about your Pets
 	//
 	// http://swagger.io - Find out more
@@ -92,7 +72,8 @@ type PetstoreSDK struct {
 	// Operations about user
 	User *User
 
-	sdkConfiguration sdkConfiguration
+	sdkConfiguration config.SDKConfiguration
+	hooks            *hooks.Hooks
 }
 
 type SDKOption func(*PetstoreSDK)
@@ -159,12 +140,12 @@ func (e *ServerEnvironment) UnmarshalJSON(data []byte) error {
 // WithEnvironment allows setting the environment variable for url substitution
 func WithEnvironment(environment ServerEnvironment) SDKOption {
 	return func(sdk *PetstoreSDK) {
-		for idx := range sdk.sdkConfiguration.ServerDefaults {
-			if _, ok := sdk.sdkConfiguration.ServerDefaults[idx]["environment"]; !ok {
+		for idx := range sdk.sdkConfiguration.ServerVariables {
+			if _, ok := sdk.sdkConfiguration.ServerVariables[idx]["environment"]; !ok {
 				continue
 			}
 
-			sdk.sdkConfiguration.ServerDefaults[idx]["environment"] = fmt.Sprintf("%v", environment)
+			sdk.sdkConfiguration.ServerVariables[idx]["environment"] = fmt.Sprintf("%v", environment)
 		}
 	}
 }
@@ -209,20 +190,18 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *PetstoreSDK {
 	sdk := &PetstoreSDK{
-		sdkConfiguration: sdkConfiguration{
-			Language:          "go",
-			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.4.0",
-			GenVersion:        "2.505.0",
-			UserAgent:         "speakeasy-sdk/go 0.4.0 2.505.0 1.0.0 github.com/bflad/petstore-sdk",
-			ServerDefaults: []map[string]string{
+		SDKVersion: "0.5.0",
+		sdkConfiguration: config.SDKConfiguration{
+			UserAgent:  "speakeasy-sdk/go 0.5.0 2.824.1 1.0.0 github.com/bflad/petstore-sdk",
+			ServerList: ServerList,
+			ServerVariables: []map[string]string{
 				{},
 				{
 					"environment": "prod",
 				},
 			},
-			Hooks: hooks.New(),
 		},
+		hooks: hooks.New(),
 	}
 	for _, opt := range opts {
 		opt(sdk)
@@ -235,16 +214,14 @@ func New(opts ...SDKOption) *PetstoreSDK {
 
 	currentServerURL, _ := sdk.sdkConfiguration.GetServerDetails()
 	serverURL := currentServerURL
-	serverURL, sdk.sdkConfiguration.Client = sdk.sdkConfiguration.Hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
-	if serverURL != currentServerURL {
+	serverURL, sdk.sdkConfiguration.Client = sdk.hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
+	if currentServerURL != serverURL {
 		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 
-	sdk.Pet = newPet(sdk.sdkConfiguration)
-
-	sdk.Store = newStore(sdk.sdkConfiguration)
-
-	sdk.User = newUser(sdk.sdkConfiguration)
+	sdk.Pet = newPet(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Store = newStore(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.User = newUser(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

@@ -1,5 +1,4 @@
 # User
-(*User*)
 
 ## Overview
 
@@ -21,6 +20,7 @@ This can only be done by the logged in user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createUser" method="post" path="/user" -->
 ```go
 package main
 
@@ -33,20 +33,20 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
     res, err := s.User.CreateUser(ctx, &components.User{
-        ID: petstoresdk.Int64(10),
-        Username: petstoresdk.String("theUser"),
-        FirstName: petstoresdk.String("John"),
-        LastName: petstoresdk.String("James"),
-        Email: petstoresdk.String("john@email.com"),
-        Password: petstoresdk.String("12345"),
-        Phone: petstoresdk.String("12345"),
-        UserStatus: petstoresdk.Int(1),
+        ID: petstoresdk.Pointer[int64](10),
+        Username: petstoresdk.Pointer("theUser"),
+        FirstName: petstoresdk.Pointer("John"),
+        LastName: petstoresdk.Pointer("James"),
+        Email: petstoresdk.Pointer("john@email.com"),
+        Password: petstoresdk.Pointer("12345"),
+        Phone: petstoresdk.Pointer("12345"),
+        UserStatus: petstoresdk.Pointer[int](1),
     })
     if err != nil {
         log.Fatal(err)
@@ -81,6 +81,7 @@ Creates list of users with given input array
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createUsersWithListInput" method="post" path="/user/createWithList" -->
 ```go
 package main
 
@@ -93,21 +94,21 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
     res, err := s.User.CreateUsersWithListInput(ctx, []components.User{
         components.User{
-            ID: petstoresdk.Int64(10),
-            Username: petstoresdk.String("theUser"),
-            FirstName: petstoresdk.String("John"),
-            LastName: petstoresdk.String("James"),
-            Email: petstoresdk.String("john@email.com"),
-            Password: petstoresdk.String("12345"),
-            Phone: petstoresdk.String("12345"),
-            UserStatus: petstoresdk.Int(1),
+            ID: petstoresdk.Pointer[int64](10),
+            Username: petstoresdk.Pointer("theUser"),
+            FirstName: petstoresdk.Pointer("John"),
+            LastName: petstoresdk.Pointer("James"),
+            Email: petstoresdk.Pointer("john@email.com"),
+            Password: petstoresdk.Pointer("12345"),
+            Phone: petstoresdk.Pointer("12345"),
+            UserStatus: petstoresdk.Pointer[int](1),
         },
     })
     if err != nil {
@@ -143,6 +144,7 @@ Logs user into the system
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="loginUser" method="get" path="/user/login" -->
 ```go
 package main
 
@@ -154,7 +156,7 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
@@ -197,6 +199,7 @@ Logs out current logged in user session
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="logoutUser" method="get" path="/user/logout" -->
 ```go
 package main
 
@@ -208,7 +211,7 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
@@ -246,6 +249,7 @@ Get user by user name
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getUserByName" method="get" path="/user/{username}" -->
 ```go
 package main
 
@@ -257,12 +261,12 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.User.GetUserByName(ctx, "Zachery_Lubowitz15")
+    res, err := s.User.GetUserByName(ctx, "Edyth10")
     if err != nil {
         log.Fatal(err)
     }
@@ -299,6 +303,7 @@ This can only be done by the logged in user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateUser" method="put" path="/user/{username}" -->
 ```go
 package main
 
@@ -311,20 +316,20 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.User.UpdateUser(ctx, "Dandre_Hand41", &components.User{
-        ID: petstoresdk.Int64(10),
-        Username: petstoresdk.String("theUser"),
-        FirstName: petstoresdk.String("John"),
-        LastName: petstoresdk.String("James"),
-        Email: petstoresdk.String("john@email.com"),
-        Password: petstoresdk.String("12345"),
-        Phone: petstoresdk.String("12345"),
-        UserStatus: petstoresdk.Int(1),
+    res, err := s.User.UpdateUser(ctx, "Alison.Cassin", &components.User{
+        ID: petstoresdk.Pointer[int64](10),
+        Username: petstoresdk.Pointer("theUser"),
+        FirstName: petstoresdk.Pointer("John"),
+        LastName: petstoresdk.Pointer("James"),
+        Email: petstoresdk.Pointer("john@email.com"),
+        Password: petstoresdk.Pointer("12345"),
+        Phone: petstoresdk.Pointer("12345"),
+        UserStatus: petstoresdk.Pointer[int](1),
     })
     if err != nil {
         log.Fatal(err)
@@ -360,6 +365,7 @@ This can only be done by the logged in user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteUser" method="delete" path="/user/{username}" -->
 ```go
 package main
 
@@ -371,12 +377,12 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.User.DeleteUser(ctx, "Demetris_Schmitt")
+    res, err := s.User.DeleteUser(ctx, "Rita_Schuppe")
     if err != nil {
         log.Fatal(err)
     }

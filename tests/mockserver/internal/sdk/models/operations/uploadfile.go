@@ -12,7 +12,7 @@ type UploadFileRequest struct {
 	PetID int64 `pathParam:"style=simple,explode=false,name=petId"`
 	// Additional Metadata
 	AdditionalMetadata *string    `queryParam:"style=form,explode=true,name=additionalMetadata"`
-	RequestBody        *io.Reader `request:"mediaType=application/octet-stream"`
+	Body               *io.Reader `request:"mediaType=application/octet-stream"`
 }
 
 func (o *UploadFileRequest) GetPetID() int64 {
@@ -29,11 +29,11 @@ func (o *UploadFileRequest) GetAdditionalMetadata() *string {
 	return o.AdditionalMetadata
 }
 
-func (o *UploadFileRequest) GetRequestBody() *io.Reader {
+func (o *UploadFileRequest) GetBody() *io.Reader {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.Body
 }
 
 type UploadFileResponse struct {

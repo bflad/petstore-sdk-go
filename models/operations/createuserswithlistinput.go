@@ -12,16 +12,16 @@ type CreateUsersWithListInputResponse struct {
 	User *components.User
 }
 
-func (o *CreateUsersWithListInputResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateUsersWithListInputResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateUsersWithListInputResponse) GetUser() *components.User {
-	if o == nil {
+func (c *CreateUsersWithListInputResponse) GetUser() *components.User {
+	if c == nil {
 		return nil
 	}
-	return o.User
+	return c.User
 }

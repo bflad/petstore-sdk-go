@@ -15,25 +15,25 @@ type UploadFileRequest struct {
 	RequestBody *any `request:"mediaType=application/octet-stream"`
 }
 
-func (o *UploadFileRequest) GetPetID() int64 {
-	if o == nil {
+func (u *UploadFileRequest) GetPetID() int64 {
+	if u == nil {
 		return 0
 	}
-	return o.PetID
+	return u.PetID
 }
 
-func (o *UploadFileRequest) GetAdditionalMetadata() *string {
-	if o == nil {
+func (u *UploadFileRequest) GetAdditionalMetadata() *string {
+	if u == nil {
 		return nil
 	}
-	return o.AdditionalMetadata
+	return u.AdditionalMetadata
 }
 
-func (o *UploadFileRequest) GetRequestBody() *any {
-	if o == nil {
+func (u *UploadFileRequest) GetRequestBody() *any {
+	if u == nil {
 		return nil
 	}
-	return o.RequestBody
+	return u.RequestBody
 }
 
 type UploadFileResponse struct {
@@ -42,16 +42,16 @@ type UploadFileResponse struct {
 	APIResponse *components.APIResponse
 }
 
-func (o *UploadFileResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UploadFileResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UploadFileResponse) GetAPIResponse() *components.APIResponse {
-	if o == nil {
+func (u *UploadFileResponse) GetAPIResponse() *components.APIResponse {
+	if u == nil {
 		return nil
 	}
-	return o.APIResponse
+	return u.APIResponse
 }

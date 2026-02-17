@@ -11,11 +11,11 @@ type GetOrderByIDRequest struct {
 	OrderID int64 `pathParam:"style=simple,explode=false,name=orderId"`
 }
 
-func (o *GetOrderByIDRequest) GetOrderID() int64 {
-	if o == nil {
+func (g *GetOrderByIDRequest) GetOrderID() int64 {
+	if g == nil {
 		return 0
 	}
-	return o.OrderID
+	return g.OrderID
 }
 
 type GetOrderByIDResponse struct {
@@ -24,16 +24,16 @@ type GetOrderByIDResponse struct {
 	Order *components.Order
 }
 
-func (o *GetOrderByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetOrderByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetOrderByIDResponse) GetOrder() *components.Order {
-	if o == nil {
+func (g *GetOrderByIDResponse) GetOrder() *components.Order {
+	if g == nil {
 		return nil
 	}
-	return o.Order
+	return g.Order
 }

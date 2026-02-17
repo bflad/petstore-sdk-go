@@ -11,11 +11,11 @@ type DeleteUserRequest struct {
 	Username string `pathParam:"style=simple,explode=false,name=username"`
 }
 
-func (o *DeleteUserRequest) GetUsername() string {
-	if o == nil {
+func (d *DeleteUserRequest) GetUsername() string {
+	if d == nil {
 		return ""
 	}
-	return o.Username
+	return d.Username
 }
 
 type DeleteUserResponse struct {
@@ -24,16 +24,16 @@ type DeleteUserResponse struct {
 	User *components.User
 }
 
-func (o *DeleteUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteUserResponse) GetUser() *components.User {
-	if o == nil {
+func (d *DeleteUserResponse) GetUser() *components.User {
+	if d == nil {
 		return nil
 	}
-	return o.User
+	return d.User
 }

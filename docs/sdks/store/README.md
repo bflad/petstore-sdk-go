@@ -1,5 +1,4 @@
 # Store
-(*Store*)
 
 ## Overview
 
@@ -21,6 +20,7 @@ Returns a map of status codes to quantities
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getInventory" method="get" path="/store/inventory" -->
 ```go
 package main
 
@@ -32,7 +32,7 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
@@ -72,6 +72,7 @@ Place a new order in the store
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="placeOrder" method="post" path="/store/order" -->
 ```go
 package main
 
@@ -84,15 +85,15 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
     res, err := s.Store.PlaceOrder(ctx, &components.Order{
-        ID: petstoresdk.Int64(10),
-        PetID: petstoresdk.Int64(198772),
-        Quantity: petstoresdk.Int(7),
+        ID: petstoresdk.Pointer[int64](10),
+        PetID: petstoresdk.Pointer[int64](198772),
+        Quantity: petstoresdk.Pointer[int](7),
         Status: components.OrderStatusApproved.ToPointer(),
     })
     if err != nil {
@@ -130,6 +131,7 @@ For valid response try integer IDs with value <= 5 or > 10. Other values will ge
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getOrderById" method="get" path="/store/order/{orderId}" -->
 ```go
 package main
 
@@ -141,12 +143,12 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.Store.GetOrderByID(ctx, 614993)
+    res, err := s.Store.GetOrderByID(ctx, 728529)
     if err != nil {
         log.Fatal(err)
     }
@@ -183,6 +185,7 @@ For valid response try integer IDs with value < 1000. Anything above 1000 or non
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteOrder" method="delete" path="/store/order/{orderId}" -->
 ```go
 package main
 
@@ -194,12 +197,12 @@ import(
 
 func main() {
     ctx := context.Background()
-    
+
     s := petstoresdk.New(
         petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
     )
 
-    res, err := s.Store.DeleteOrder(ctx, 127902)
+    res, err := s.Store.DeleteOrder(ctx, 690575)
     if err != nil {
         log.Fatal(err)
     }

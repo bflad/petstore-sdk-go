@@ -4,13 +4,15 @@ package sdkerrors
 
 import (
 	"encoding/json"
+	"mockserver/internal/sdk/models/components"
 )
 
 // APIErrorNotFound - Not Found error
 type APIErrorNotFound struct {
-	Status int    `json:"status"`
-	Error_ string `json:"error"`
-	Code   string `json:"code"`
+	Status   int                     `json:"status"`
+	Error_   string                  `json:"error"`
+	Code     string                  `json:"code"`
+	HTTPMeta components.HTTPMetadata `json:"-"`
 }
 
 var _ error = &APIErrorNotFound{}

@@ -25,7 +25,7 @@ func pathGetPetFindByStatus(dir *logging.HTTPFileDirectory, rt *tracking.Request
 		case "findPetsByStatus[0]":
 			dir.HandlerFunc("findPetsByStatus", testFindPetsByStatusFindPetsByStatus0)(w, req)
 		default:
-			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
+			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
@@ -46,7 +46,7 @@ func testFindPetsByStatusFindPetsByStatus0(w http.ResponseWriter, req *http.Requ
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := []components.Pet{
+	var respBody []components.Pet = []components.Pet{
 		components.Pet{
 			ID:   types.Int64(10),
 			Name: "doggie",

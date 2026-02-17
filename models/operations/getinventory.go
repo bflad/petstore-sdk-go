@@ -12,16 +12,16 @@ type GetInventoryResponse struct {
 	Object map[string]int
 }
 
-func (o *GetInventoryResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetInventoryResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetInventoryResponse) GetObject() map[string]int {
-	if o == nil {
+func (g *GetInventoryResponse) GetObject() map[string]int {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

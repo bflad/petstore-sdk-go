@@ -12,16 +12,16 @@ type CreateUserResponse struct {
 	User *components.User
 }
 
-func (o *CreateUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateUserResponse) GetUser() *components.User {
-	if o == nil {
+func (c *CreateUserResponse) GetUser() *components.User {
+	if c == nil {
 		return nil
 	}
-	return o.User
+	return c.User
 }

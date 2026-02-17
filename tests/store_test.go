@@ -15,9 +15,11 @@ import (
 func TestStore_GetInventory(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("getInventory")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("getInventory")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -34,25 +36,27 @@ func TestStore_GetInventory(t *testing.T) {
 func TestStore_PlaceOrder(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("placeOrder")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("placeOrder")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
 	res, err := s.Store.PlaceOrder(ctx, &components.Order{
-		ID:       petstoresdk.Int64(10),
-		PetID:    petstoresdk.Int64(198772),
-		Quantity: petstoresdk.Int(7),
+		ID:       petstoresdk.Pointer[int64](10),
+		PetID:    petstoresdk.Pointer[int64](198772),
+		Quantity: petstoresdk.Pointer[int](7),
 		Status:   components.OrderStatusApproved.ToPointer(),
 	})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Order)
 	assert.Equal(t, &components.Order{
-		ID:       petstoresdk.Int64(10),
-		PetID:    petstoresdk.Int64(198772),
-		Quantity: petstoresdk.Int(7),
+		ID:       petstoresdk.Pointer[int64](10),
+		PetID:    petstoresdk.Pointer[int64](198772),
+		Quantity: petstoresdk.Pointer[int](7),
 		Status:   components.OrderStatusApproved.ToPointer(),
 	}, res.Order)
 
@@ -61,9 +65,11 @@ func TestStore_PlaceOrder(t *testing.T) {
 func TestStore_GetOrderByID(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("getOrderById")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("getOrderById")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -72,9 +78,9 @@ func TestStore_GetOrderByID(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Order)
 	assert.Equal(t, &components.Order{
-		ID:       petstoresdk.Int64(10),
-		PetID:    petstoresdk.Int64(198772),
-		Quantity: petstoresdk.Int(7),
+		ID:       petstoresdk.Pointer[int64](10),
+		PetID:    petstoresdk.Pointer[int64](198772),
+		Quantity: petstoresdk.Pointer[int](7),
 		Status:   components.OrderStatusApproved.ToPointer(),
 	}, res.Order)
 
@@ -83,9 +89,11 @@ func TestStore_GetOrderByID(t *testing.T) {
 func TestStore_DeleteOrder(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("deleteOrder")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("deleteOrder")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -94,9 +102,9 @@ func TestStore_DeleteOrder(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Order)
 	assert.Equal(t, &components.Order{
-		ID:       petstoresdk.Int64(10),
-		PetID:    petstoresdk.Int64(198772),
-		Quantity: petstoresdk.Int(7),
+		ID:       petstoresdk.Pointer[int64](10),
+		PetID:    petstoresdk.Pointer[int64](198772),
+		Quantity: petstoresdk.Pointer[int](7),
 		Status:   components.OrderStatusApproved.ToPointer(),
 	}, res.Order)
 

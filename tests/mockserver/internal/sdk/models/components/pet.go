@@ -7,19 +7,19 @@ import (
 	"fmt"
 )
 
-// Status - pet status in the store
-type Status string
+// PetStatus - pet status in the store
+type PetStatus string
 
 const (
-	StatusAvailable Status = "available"
-	StatusPending   Status = "pending"
-	StatusSold      Status = "sold"
+	PetStatusAvailable PetStatus = "available"
+	PetStatusPending   PetStatus = "pending"
+	PetStatusSold      PetStatus = "sold"
 )
 
-func (e Status) ToPointer() *Status {
+func (e PetStatus) ToPointer() *PetStatus {
 	return &e
 }
-func (e *Status) UnmarshalJSON(data []byte) error {
+func (e *PetStatus) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -30,10 +30,10 @@ func (e *Status) UnmarshalJSON(data []byte) error {
 	case "pending":
 		fallthrough
 	case "sold":
-		*e = Status(v)
+		*e = PetStatus(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Status: %v", v)
+		return fmt.Errorf("invalid value for PetStatus: %v", v)
 	}
 }
 
@@ -44,7 +44,7 @@ type Pet struct {
 	PhotoUrls []string  `json:"photoUrls"`
 	Tags      []Tag     `json:"tags,omitempty"`
 	// pet status in the store
-	Status *Status `json:"status,omitempty"`
+	Status *PetStatus `json:"status,omitempty"`
 }
 
 func (o *Pet) GetID() *int64 {
@@ -82,7 +82,7 @@ func (o *Pet) GetTags() []Tag {
 	return o.Tags
 }
 
-func (o *Pet) GetStatus() *Status {
+func (o *Pet) GetStatus() *PetStatus {
 	if o == nil {
 		return nil
 	}

@@ -24,7 +24,7 @@ func pathGetUserLogin(dir *logging.HTTPFileDirectory, rt *tracking.RequestTracke
 		case "loginUser[0]":
 			dir.HandlerFunc("loginUser", testLoginUserLoginUser0)(w, req)
 		default:
-			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
+			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
@@ -45,7 +45,7 @@ func testLoginUserLoginUser0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := types.String("<value>")
+	var respBody *string = types.String("<value>")
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

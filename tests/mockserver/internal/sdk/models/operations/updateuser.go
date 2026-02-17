@@ -10,7 +10,7 @@ type UpdateUserRequest struct {
 	// name that needs to be updated
 	Username string `pathParam:"style=simple,explode=false,name=username"`
 	// Update an existent user in the store
-	User *components.User `request:"mediaType=application/json"`
+	Body *components.User `request:"mediaType=application/json"`
 }
 
 func (o *UpdateUserRequest) GetUsername() string {
@@ -20,11 +20,11 @@ func (o *UpdateUserRequest) GetUsername() string {
 	return o.Username
 }
 
-func (o *UpdateUserRequest) GetUser() *components.User {
+func (o *UpdateUserRequest) GetBody() *components.User {
 	if o == nil {
 		return nil
 	}
-	return o.User
+	return o.Body
 }
 
 type UpdateUserResponse struct {

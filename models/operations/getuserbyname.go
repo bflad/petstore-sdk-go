@@ -11,11 +11,11 @@ type GetUserByNameRequest struct {
 	Username string `pathParam:"style=simple,explode=false,name=username"`
 }
 
-func (o *GetUserByNameRequest) GetUsername() string {
-	if o == nil {
+func (g *GetUserByNameRequest) GetUsername() string {
+	if g == nil {
 		return ""
 	}
-	return o.Username
+	return g.Username
 }
 
 type GetUserByNameResponse struct {
@@ -24,16 +24,16 @@ type GetUserByNameResponse struct {
 	User *components.User
 }
 
-func (o *GetUserByNameResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetUserByNameResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetUserByNameResponse) GetUser() *components.User {
-	if o == nil {
+func (g *GetUserByNameResponse) GetUser() *components.User {
+	if g == nil {
 		return nil
 	}
-	return o.User
+	return g.User
 }

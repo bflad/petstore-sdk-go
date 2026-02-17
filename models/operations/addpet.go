@@ -12,16 +12,16 @@ type AddPetResponse struct {
 	Pet *components.Pet
 }
 
-func (o *AddPetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (a *AddPetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if a == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return a.HTTPMeta
 }
 
-func (o *AddPetResponse) GetPet() *components.Pet {
-	if o == nil {
+func (a *AddPetResponse) GetPet() *components.Pet {
+	if a == nil {
 		return nil
 	}
-	return o.Pet
+	return a.Pet
 }

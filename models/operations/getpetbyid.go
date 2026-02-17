@@ -11,11 +11,11 @@ type GetPetByIDRequest struct {
 	PetID int64 `pathParam:"style=simple,explode=false,name=petId"`
 }
 
-func (o *GetPetByIDRequest) GetPetID() int64 {
-	if o == nil {
+func (g *GetPetByIDRequest) GetPetID() int64 {
+	if g == nil {
 		return 0
 	}
-	return o.PetID
+	return g.PetID
 }
 
 type GetPetByIDResponse struct {
@@ -24,16 +24,16 @@ type GetPetByIDResponse struct {
 	Pet *components.Pet
 }
 
-func (o *GetPetByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetPetByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetPetByIDResponse) GetPet() *components.Pet {
-	if o == nil {
+func (g *GetPetByIDResponse) GetPet() *components.Pet {
+	if g == nil {
 		return nil
 	}
-	return o.Pet
+	return g.Pet
 }

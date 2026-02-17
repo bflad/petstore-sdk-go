@@ -22,7 +22,7 @@ func pathPutUserUsername(dir *logging.HTTPFileDirectory, rt *tracking.RequestTra
 		case "updateUser[0]":
 			dir.HandlerFunc("updateUser", testUpdateUserUpdateUser0)(w, req)
 		default:
-			http.Error(w, "Unknown test: "+test, http.StatusBadRequest)
+			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }

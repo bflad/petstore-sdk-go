@@ -7,6 +7,7 @@ import (
 	petstoresdk "github.com/bflad/petstore-sdk"
 	"github.com/bflad/petstore-sdk/internal/utils"
 	"github.com/bflad/petstore-sdk/models/components"
+	"github.com/bflad/petstore-sdk/models/operations"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -15,18 +16,20 @@ import (
 func TestPet_UpdatePet(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("updatePet")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("updatePet")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
 	res, err := s.Pet.UpdatePet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
 			"<value>",
@@ -37,11 +40,11 @@ func TestPet_UpdatePet(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
 			"<value>",
@@ -53,43 +56,45 @@ func TestPet_UpdatePet(t *testing.T) {
 func TestPet_FindPetsByStatus(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("findPetsByStatus")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("findPetsByStatus")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
-	res, err := s.Pet.FindPetsByStatus(ctx, nil)
+	res, err := s.Pet.FindPetsByStatus(ctx, operations.StatusAvailable.ToPointer())
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Pets)
 	assert.Equal(t, []components.Pet{
 		components.Pet{
-			ID:   petstoresdk.Int64(10),
+			ID:   petstoresdk.Pointer[int64](10),
 			Name: "doggie",
 			Category: &components.Category{
-				ID:   petstoresdk.Int64(1),
-				Name: petstoresdk.String("Dogs"),
+				ID:   petstoresdk.Pointer[int64](1),
+				Name: petstoresdk.Pointer("Dogs"),
 			},
 			PhotoUrls: []string{},
 		},
 		components.Pet{
-			ID:   petstoresdk.Int64(10),
+			ID:   petstoresdk.Pointer[int64](10),
 			Name: "doggie",
 			Category: &components.Category{
-				ID:   petstoresdk.Int64(1),
-				Name: petstoresdk.String("Dogs"),
+				ID:   petstoresdk.Pointer[int64](1),
+				Name: petstoresdk.Pointer("Dogs"),
 			},
 			PhotoUrls: []string{
 				"<value>",
 			},
 		},
 		components.Pet{
-			ID:   petstoresdk.Int64(10),
+			ID:   petstoresdk.Pointer[int64](10),
 			Name: "doggie",
 			Category: &components.Category{
-				ID:   petstoresdk.Int64(1),
-				Name: petstoresdk.String("Dogs"),
+				ID:   petstoresdk.Pointer[int64](1),
+				Name: petstoresdk.Pointer("Dogs"),
 			},
 			PhotoUrls: []string{},
 		},
@@ -100,9 +105,11 @@ func TestPet_FindPetsByStatus(t *testing.T) {
 func TestPet_FindPetsByTags(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("findPetsByTags")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("findPetsByTags")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -112,11 +119,11 @@ func TestPet_FindPetsByTags(t *testing.T) {
 	assert.NotNil(t, res.Pets)
 	assert.Equal(t, []components.Pet{
 		components.Pet{
-			ID:   petstoresdk.Int64(10),
+			ID:   petstoresdk.Pointer[int64](10),
 			Name: "doggie",
 			Category: &components.Category{
-				ID:   petstoresdk.Int64(1),
-				Name: petstoresdk.String("Dogs"),
+				ID:   petstoresdk.Pointer[int64](1),
+				Name: petstoresdk.Pointer("Dogs"),
 			},
 			PhotoUrls: []string{
 				"<value>",
@@ -131,9 +138,11 @@ func TestPet_FindPetsByTags(t *testing.T) {
 func TestPet_GetPetByID(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("getPetById")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("getPetById")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -142,11 +151,11 @@ func TestPet_GetPetByID(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{},
 	}, res.Pet)
@@ -156,9 +165,11 @@ func TestPet_GetPetByID(t *testing.T) {
 func TestPet_DeletePet(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("deletePet")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("deletePet")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -167,11 +178,11 @@ func TestPet_DeletePet(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
 			"<value>",
@@ -183,9 +194,11 @@ func TestPet_DeletePet(t *testing.T) {
 func TestPet_AddPetFido(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("addPet-fido")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("addPet-fido")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -200,7 +213,7 @@ func TestPet_AddPetFido(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
-		ID:   petstoresdk.Int64(1),
+		ID:   petstoresdk.Pointer[int64](1),
 		Name: "Fido",
 		PhotoUrls: []string{
 			"https://www.example.com/fido.jpg",
@@ -213,9 +226,11 @@ func TestPet_AddPetFido(t *testing.T) {
 func TestPet_AddPetRover(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("addPet-rover")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("addPet-rover")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
@@ -231,7 +246,7 @@ func TestPet_AddPetRover(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
-		ID:   petstoresdk.Int64(2),
+		ID:   petstoresdk.Pointer[int64](2),
 		Name: "Rover",
 		PhotoUrls: []string{
 			"https://www.example.com/rover1.jpg",
@@ -245,18 +260,20 @@ func TestPet_AddPetRover(t *testing.T) {
 func TestPet_AddPet(t *testing.T) {
 	ctx := context.Background()
 
+	testHTTPClient := createTestHTTPClient("addPet")
+
 	s := petstoresdk.New(
 		petstoresdk.WithServerURL(utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080")),
-		petstoresdk.WithClient(createTestHTTPClient("addPet")),
+		petstoresdk.WithClient(testHTTPClient),
 		petstoresdk.WithSecurity("<YOUR_API_KEY_HERE>"),
 	)
 
 	res, err := s.Pet.AddPet(ctx, components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
 			"<value>",
@@ -266,11 +283,11 @@ func TestPet_AddPet(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Pet)
 	assert.Equal(t, &components.Pet{
-		ID:   petstoresdk.Int64(10),
+		ID:   petstoresdk.Pointer[int64](10),
 		Name: "doggie",
 		Category: &components.Category{
-			ID:   petstoresdk.Int64(1),
-			Name: petstoresdk.String("Dogs"),
+			ID:   petstoresdk.Pointer[int64](1),
+			Name: petstoresdk.Pointer("Dogs"),
 		},
 		PhotoUrls: []string{
 			"<value>",
